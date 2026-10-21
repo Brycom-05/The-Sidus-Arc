@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dligybt2gyu8c"]
+
+[ext_resource type="Script" uid="uid://bcde5qtkpsx8o" path="res://UI/ui_controller.gd" id="1_mx0gf"]
+[ext_resource type="PackedScene" uid="uid://cqw8hqfovcryp" path="res://UI/Camera/main_camera.tscn" id="2_2m40q"]
+
+[node name="UIController" type="Node2D" unique_id=486333169]
+script = ExtResource("1_mx0gf")
+
+[node name="MainCamera" parent="." unique_id=1575014077 instance=ExtResource("2_2m40q")]
+zoom = Vector2(0.5, 0.5)

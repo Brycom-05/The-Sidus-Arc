@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bufg8h4f60kah"]
+
+[ext_resource type="PackedScene" uid="uid://xesimyvum4t5" path="res://Map/hex_map.tscn" id="1_5bawo"]
+[ext_resource type="PackedScene" uid="uid://dligybt2gyu8c" path="res://UI/ui_controller.tscn" id="2_gmmwd"]
+
+[node name="Root" type="Node2D" unique_id=1810839130]
+
+[node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_5bawo")]
+
+[node name="UIController" parent="." unique_id=1451427509 instance=ExtResource("2_gmmwd")]
+position = Vector2(591, 414)
