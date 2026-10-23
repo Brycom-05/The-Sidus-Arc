@@ -34,7 +34,6 @@ func generate_map() -> void:
 	place_character(character1, Vector2i(0, 0))
 	place_character(character2, Vector2i(4, 5))
 
-
 func add_character(character: MapCharacter) -> void:
 	map_characters.push_back(character)
 	character.visible = false
