@@ -49,3 +49,10 @@ func remove_character(character: MapCharacter) -> void:
 func place_character(character: MapCharacter, cell: Vector2i) -> void:
 	character.position = base_layer.map_to_local(cell)
 	character.visible = true
+
+func get_characters() -> Array[MapCharacter]:
+	return map_characters
+
+## TODO
+func reveal_enemy_moves() -> void:
+	pass

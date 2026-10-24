@@ -1,9 +1,17 @@
 class_name Card extends RefCounted
 
-var _id: int
+enum CardType {
+	MOVEMENT,
+}
 
-func _init(id: int) -> void:
+var _id: int
+var _type: CardType
+
+func _init(id: int, _type: CardType) -> void:
 	_id = id
 
 func get_id() -> int:
 	return _id
+
+func get_type() -> CardType:
+	return _type
