@@ -8,5 +8,7 @@ static func instance() -> CardController:
 	return _instance
 
 
-func execute_card(character: MapCharacter, card: Card) -> void:
-	pass
+func execute_card_effect(character: MapCharacter, effect: CardEffect) -> void:
+	if effect is MoveEffect:
+		HexMap.instance().move_character(character, effect.get_destination())
+		

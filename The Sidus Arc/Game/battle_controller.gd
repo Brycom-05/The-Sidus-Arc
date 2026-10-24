@@ -34,22 +34,21 @@ func plan_phase_end() -> void:
 ## that round are resolved using the resulting positions. Damage is calculated and applied simultaneously.
 func resolution_phase() -> void:
 	# TODO: Doesn't take into account UI, should eventually use queue and get signals from UI after animation
-	
+	print("Resolution Phase")
 	# Movement first
 	for character: MapCharacter in HexMap.instance().get_characters():
-		var selected_card: Card = character.get_selected_card()
-		if selected_card.get_type() != Card.CardType.MOVEMENT:
+		var card_effect: CardEffect = character.get_card_effect()
+		if card_effect == null or card_effect is not MoveEffect:
 			continue
-		
-		CardController.instance().execute_card(character, selected_card)
+		CardController.instance().execute_card_effect(character, card_effect)
 	
 	# Then rest
 	for character: MapCharacter in HexMap.instance().get_characters():
-		var selected_card: Card = character.get_selected_card()
-		if selected_card.get_type() == Card.CardType.MOVEMENT:
+		var card_effect: CardEffect = character.get_card_effect()
+		if card_effect == null or card_effect is MoveEffect:
 			continue
 		
-		CardController.instance().execute_card(character, selected_card)
+		CardController.instance().execute_card_effect(character, card_effect)
 	
 
 ## The game checks for victory or defeat, discards played cards, 

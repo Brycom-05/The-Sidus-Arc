@@ -8,4 +8,6 @@ func _init(p_deck: Deck) -> void:
 	hand = Hand.new(p_deck)
 
 func next_turn() -> void:
+	_card_effect = null
+	
 	hand.refresh_hand()
