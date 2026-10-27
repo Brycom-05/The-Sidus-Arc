@@ -37,18 +37,20 @@ func resolution_phase() -> void:
 	print("Resolution Phase")
 	# Movement first
 	for character: MapCharacter in HexMap.instance().get_characters():
-		var card_effect: CardEffect = character.get_card_effect()
-		if card_effect == null or card_effect is not MoveEffect:
-			continue
-		CardController.instance().execute_card_effect(character, card_effect)
+		var card_effects: Array[CardEffect] = character.get_card_effects()
+		for effect: CardEffect in card_effects:
+			if effect is MoveEffect:
+				continue
+			CardController.instance().execute_card_effect(character, effect)
 	
 	# Then rest
 	for character: MapCharacter in HexMap.instance().get_characters():
-		var card_effect: CardEffect = character.get_card_effect()
-		if card_effect == null or card_effect is MoveEffect:
-			continue
-		
-		CardController.instance().execute_card_effect(character, card_effect)
+		var card_effects: Array[CardEffect] = character.get_card_effects()
+		for effect: CardEffect in card_effects:
+			if effect is not MoveEffect:
+				continue
+			
+			CardController.instance().execute_card_effect(character, effect)
 	
 
 ## The game checks for victory or defeat, discards played cards, 

@@ -6,12 +6,12 @@ enum CardType {
 
 var _id: int
 var _type: CardType
-var _capability: CardCapability
+var _capabilities: Array[CardCapability]
 
-func _init(id: int, type: CardType, capability: CardCapability) -> void:
+func _init(id: int, type: CardType, capabilities: Array[CardCapability]) -> void:
 	_id = id
 	_type = type
-	_capability = capability
+	_capabilities = capabilities
 
 func get_id() -> int:
 	return _id
@@ -19,5 +19,5 @@ func get_id() -> int:
 func get_type() -> CardType:
 	return _type
 
-func get_capability() -> CardCapability:
-	return _capability
+func get_capabilities() -> Array[CardCapability]:
+	return _capabilities

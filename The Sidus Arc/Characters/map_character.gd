@@ -3,7 +3,7 @@ class_name MapCharacter extends Sprite2D
 static var NUMBER_OF_CHARACTERS: int = 0
 
 var id: int
-var _card_effect: CardEffect = null
+var _card_effects: Array[CardEffect] = []
 var _tile: Vector2i = Vector2i(0, 0)
 
 func _init() -> void:
@@ -18,5 +18,5 @@ func move_character(dest: Vector2i) -> void:
 func get_tile() -> Vector2i:
 	return _tile
 
-func get_card_effect() -> CardEffect:
-	return _card_effect
+func get_card_effects() -> Array[CardEffect]:
+	return _card_effects

@@ -10,11 +10,12 @@ func _init(p_deck: Deck) -> void:
 	next_turn()
 
 func next_turn() -> void:
-	_card_effect = null
+	_card_effects.clear()
 	_hand.refresh_hand()
 
 func pick_move() -> void:
 	# TODO: AI GOES HERE
 	var selected_card: Card = _hand.pick_random()
 	
-	_card_effect = selected_card.get_capability().create_effect(_tile, _tile + Vector2i(0, -2))
+	for effect: CardCapability in selected_card.get_capabilities():
+		_card_effects.push_back(effect.create_effect(_tile, _tile + Vector2i(0, -2)))

@@ -26,7 +26,7 @@ func generate_map() -> void:
 			base_layer.set_cell(cell, 0, Vector2i(0, 0))
 	
 	# For testing
-	var deck := Deck.new([Card.new(0, Card.CardType.MOVEMENT, MoveCapability.new(2))])
+	var deck := Deck.new([Card.new(0, Card.CardType.MOVEMENT, [MoveCapability.new(2)])])
 	
 	var player := PlayerCharacter.new(deck)
 	var enemy := EnemyCharacter.new(deck)
