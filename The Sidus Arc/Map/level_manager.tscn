@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cj8bp38wiqkoi"]
+
+[ext_resource type="PackedScene" uid="uid://xesimyvum4t5" path="res://Map/hex_map.tscn" id="1_ce7a5"]
+
+[node name="LevelManager" type="Node2D" unique_id=1043546828]
+
+[node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_ce7a5")]
