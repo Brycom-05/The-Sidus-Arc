@@ -9,12 +9,21 @@ class_name CardDatabase extends RefCounted
 ## 	mana_cost: int
 ## 	capabilities: Array[CardCapability]
 ## }
-const CARDS: Dictionary = {
+static var CARDS: Dictionary = {
 	1: {
 		"title": "attack",
 		"mana_cost": 1,
 		"capabilities": [
 			{"type": "attack"}
+		]
+	},
+	
+	2: {
+		"title": "move",
+		"mana_cost": 1,
+		"capabilities": [
+			{"type": "move"},
+			{"range": 3}
 		]
 	}
 }
@@ -42,9 +51,9 @@ static func create_card(card_id: int) -> Card:
 		capabilities
 	)
 
-# Helper to build a full starter deck from an array of IDs
+## Helper to build a full starter deck from an array of IDs.[br]
+## [param card_ids]: an array of card ids
 static func create_deck_from_ids(card_ids: Array[int]) -> Deck:
-# @param card_ids: an array of card ids
 	var cards: Array[Card] = []
 	for id: int in card_ids:
 		var card: Card = create_card(id)
@@ -52,9 +61,9 @@ static func create_deck_from_ids(card_ids: Array[int]) -> Deck:
 			cards.push_back(card)
 	return Deck.new(cards)
 
-# Helper to build capabilities that a card has
+## Helper to build capabilities that a card has[br]
+## [param cap_data]: the listed capabilities in card's capabilities
 static func _build_capabilities(cap_data: Dictionary) -> CardCapability:
-# @param cap_data: the listed capabilities in card's capabilities
 	match cap_data["type"]:
 		"move":
 			return MoveCapability.new(cap_data["range"])

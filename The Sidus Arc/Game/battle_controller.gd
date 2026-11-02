@@ -2,6 +2,17 @@ class_name BattleController extends RefCounted
 
 static var _instance: BattleController = BattleController.new()
 
+var resolution_card_effects: Array[CharacterEffectTuple] = []
+
+class CharacterEffectTuple:
+	var character: MapCharacter
+	var effect: CardEffect
+	
+	
+	func _init(p_character: MapCharacter, p_effect: CardEffect) -> void:
+		character = p_character
+		effect = p_effect
+
 static func instance() -> BattleController:
 	if _instance == null:
 		printerr("Singleton not created yet.")
@@ -33,15 +44,18 @@ func plan_phase_end() -> void:
 ## Both mages attempt their committed movements. Card effects scheduled to impact 
 ## that round are resolved using the resulting positions. Damage is calculated and applied simultaneously.
 func resolution_phase() -> void:
-	# TODO: Doesn't take into account UI, should eventually use queue and get signals from UI after animation
-	print("Resolution Phase")
+	resolution_card_effects.clear()
+	UIController.instance().card_effect_animation_ended.connect(play_next_card_effect)
+
 	# Movement first
 	for character: MapCharacter in HexMap.instance().get_characters():
 		var card_effects: Array[CardEffect] = character.get_card_effects()
 		for effect: CardEffect in card_effects:
 			if effect is MoveEffect:
 				continue
-			CardController.instance().execute_card_effect(character, effect)
+			resolution_card_effects.push_back(CharacterEffectTuple.new(
+				character, effect
+			))
 	
 	# Then rest
 	for character: MapCharacter in HexMap.instance().get_characters():
@@ -49,9 +63,18 @@ func resolution_phase() -> void:
 		for effect: CardEffect in card_effects:
 			if effect is not MoveEffect:
 				continue
-			
-			CardController.instance().execute_card_effect(character, effect)
-	
+			resolution_card_effects.push_back(CharacterEffectTuple.new(
+				character, effect
+			))
+
+func play_next_card_effect() -> void:
+	if not resolution_card_effects.is_empty():
+		var next_effect: CharacterEffectTuple = resolution_card_effects.pop_front()
+		CardController.instance().execute_card_effect(next_effect.character, next_effect.effect)
+		UIController.instance().play_effect(next_effect.effect)
+	else:
+		# Resolution phase done
+		cleanup_phase()
 
 ## The game checks for victory or defeat, discards played cards, 
 ## draws replacements when possible, updates the round counter, and generates the AI's next intent.
