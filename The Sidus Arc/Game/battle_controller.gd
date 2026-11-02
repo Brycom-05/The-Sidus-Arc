@@ -18,6 +18,9 @@ static func instance() -> BattleController:
 		printerr("Singleton not created yet.")
 	return _instance
 
+func _init() -> void:
+	UIController.instance().player_ends_plan_phase.connect(plan_phase_end)
+
 ##  The AI's committed card, destination, and any target tile are shown to the player.
 func reveal_phase() -> void:
 	# TODO: Potentially priority system for AI's if they depend on one another
