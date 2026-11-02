@@ -26,22 +26,22 @@ func generate_map() -> void:
 			base_layer.set_cell(cell, 0, Vector2i(0, 0))
 	
 	# For testing
-	var deck := CardDatabase.create_deck_from_ids([2])
-	
-	var player := PlayerCharacter.new(deck)
-	var enemy := EnemyCharacter.new(deck)
-	
-	add_character(player)
-	add_character(enemy)
-	
-	place_character(player, Vector2i(0, 0))
-	place_character(enemy, Vector2i(4, 5))
-	
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.timeout.connect(test_env)
-	add_child(timer)
-	timer.start(2)
+	#var deck := CardDatabase.create_deck_from_ids([2])
+	#
+	#var player := PlayerCharacter.new(deck)
+	#var enemy := EnemyCharacter.new(deck)
+	#
+	#add_character(player)
+	#add_character(enemy)
+	#
+	#place_character(player, Vector2i(0, 0))
+	#place_character(enemy, Vector2i(4, 5))
+	#
+	#timer = Timer.new()
+	#timer.one_shot = true
+	#timer.timeout.connect(test_env)
+	#add_child(timer)
+	#timer.start(2)
 	
 
 func test_env() -> void:
