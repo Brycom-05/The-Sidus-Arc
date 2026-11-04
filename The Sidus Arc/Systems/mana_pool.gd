@@ -1,5 +1,7 @@
 class_name ManaPool extends RefCounted
 
+signal update_mana_ui
+
 var _mana_pool: float
 var _recharge_rate: float
 
@@ -8,7 +10,7 @@ func _ready() -> void:
 	_mana_pool = 0
 	_recharge_rate = 0
 	
-func _get_mana() -> float:
+func get_mana() -> float:
 	return _mana_pool
 	
 # When a card is played, deplete mana
@@ -30,3 +32,7 @@ func can_play_card(mana_cost: float) -> bool:
 # TODO
 func recharge_mana() -> void:
 	_mana_pool += 1
+	
+# This function emits a signal when mana changes
+func mana_changed() -> void:
+	update_mana_ui.emit()
