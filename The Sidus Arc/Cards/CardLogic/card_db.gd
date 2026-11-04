@@ -3,7 +3,7 @@ class_name CardDatabase extends RefCounted
 
 # Using a dictionary to store our different cards
 ###############################
-## might be easier to label card objects by id
+## card objects labeled by id
 ## id: int {
 ## 	title: String
 ## 	mana_cost: int
