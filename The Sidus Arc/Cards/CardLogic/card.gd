@@ -4,6 +4,7 @@ var _id: int
 var _title: String
 var _mana_cost: int
 var _capabilities: Array[CardCapability]
+var card_art: Texture2D
 
 func _init(id: int, title: String, mana_cost: int, capabilities: Array[CardCapability]) -> void:
 	_id = id
