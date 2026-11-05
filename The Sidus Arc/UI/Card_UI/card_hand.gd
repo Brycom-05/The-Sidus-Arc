@@ -1,11 +1,11 @@
 extends Control
 
-const CARD_SIZE := Vector2(120, 192)
-const CARD_SPACING := 56.0
+const CARD_SIZE := Vector2(150, 240)
+const CARD_SPACING := 70.0
 const FAN_ANGLE := 11.0
-const FAN_DROP := 5.0
-const PEEK := 64.0
-const HOVER_LIFT := 32.0
+const FAN_DROP := 6.25
+const PEEK := 80.0
+const HOVER_LIFT := 40.0
 const FLIP_DURATION := 0.55
 const CARD_BACK := preload("res://UI/Card_UI/back_of_card.png")
 const STAGE_ONE_CARDS: Dictionary[String, Texture2D] = {
