@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://buqkufn3eu2d8"]
+
+[ext_resource type="Texture2D" uid="uid://83yjb38ilolb" path="res://Characters/Character_Assets/MainCharacter/main_character_spritesheet.png" id="1_vre1c"]
+
+[sub_resource type="Animation" id="Animation_3hfbw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_j1i5p"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.06666667, 0),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_vre1c"), ExtResource("1_vre1c")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l4u3x"]
+_data = {
+&"RESET": SubResource("Animation_3hfbw"),
+&"idle": SubResource("Animation_j1i5p")
+}
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hhwwv"]
+
+[node name="MainCharacter" type="Node2D" unique_id=1436860574]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=7369580]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1121215907]
+root_node = NodePath("../Sprite2D")
+libraries/ = SubResource("AnimationLibrary_l4u3x")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=810033333]
+root_node = NodePath("../Sprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_hhwwv")
+anim_player = NodePath("../AnimationPlayer")
