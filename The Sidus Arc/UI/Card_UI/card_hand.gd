@@ -8,6 +8,7 @@ const PEEK := 80.0
 const HOVER_LIFT := 40.0
 const FLIP_DURATION := 0.55
 const CARD_BACK := preload("res://UI/Card_UI/back_of_card.png")
+const CardSounds := preload("res://UI/Card_UI/card_sounds.gd")
 const STAGE_ONE_CARDS: Dictionary[String, Texture2D] = {
 	"Dash": preload("res://UI/Card_UI/StageOne_Cards/stage1_dash.png"),
 	"Fireball": preload("res://UI/Card_UI/StageOne_Cards/stage1_fireball.png"),
@@ -16,6 +17,7 @@ const STAGE_ONE_CARDS: Dictionary[String, Texture2D] = {
 }
 
 @onready var actions: HBoxContainer = $Actions
+@onready var card_sounds: CardSounds = $CardSounds
 
 var cards: Array[TextureButton] = []
 var movements: Dictionary[TextureButton, Tween] = {}
@@ -109,6 +111,7 @@ func _on_card_exit(card: TextureButton) -> void:
 func _select_card(card: TextureButton) -> void:
 	if selected_card != null:
 		return
+	card_sounds.play_pull()
 	selected_card = card
 	hovered_card = null
 	for hand_card in cards:
@@ -121,6 +124,9 @@ func _select_card(card: TextureButton) -> void:
 
 func _return_card() -> void:
 	var card := selected_card
+	if card == null:
+		return
+	card_sounds.play_back()
 	selected_card = null
 	actions.hide()
 	card.z_index = 0
