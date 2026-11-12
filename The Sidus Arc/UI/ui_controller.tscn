@@ -3,8 +3,42 @@
 [ext_resource type="Script" uid="uid://bcde5qtkpsx8o" path="res://UI/ui_controller.gd" id="1_mx0gf"]
 [ext_resource type="PackedScene" uid="uid://cqw8hqfovcryp" path="res://UI/Camera/main_camera.tscn" id="2_2m40q"]
 
+[ext_resource type="PackedScene" path="res://UI/Card_UI/card_hand.tscn" id="3_card_hand"]
+[ext_resource type="PackedScene" path="res://UI/PlayerUI/player_ui.tscn" id="4_player_ui"]
+[ext_resource type="Texture2D" path="res://UI/End_Turn/endturn.png" id="5_end_turn"]
+[ext_resource type="Script" path="res://UI/End_Turn/end_turn_hover.gd" id="6_end_turn_hover"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_end_turn"]
+atlas = ExtResource("5_end_turn")
+region = Rect2(0, 30, 100, 45)
+
 [node name="UIController" type="Node2D" unique_id=486333169]
 script = ExtResource("1_mx0gf")
 
 [node name="MainCamera" parent="." unique_id=1575014077 instance=ExtResource("2_2m40q")]
 zoom = Vector2(0.5, 0.5)
+
+[node name="CardHand" parent="." instance=ExtResource("3_card_hand")]
+
+[node name="PlayerUI" parent="." instance=ExtResource("4_player_ui")]
+
+[node name="EndTurn" type="CanvasLayer" parent="."]
+
+[node name="HoverArea" type="Control" parent="EndTurn"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -106.0
+offset_right = -16.0
+offset_bottom = -16.0
+mouse_filter = 1
+script = ExtResource("6_end_turn_hover")
+
+[node name="Artwork" type="TextureRect" parent="EndTurn/HoverArea"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture_filter = 1
+texture = SubResource("AtlasTexture_end_turn")
