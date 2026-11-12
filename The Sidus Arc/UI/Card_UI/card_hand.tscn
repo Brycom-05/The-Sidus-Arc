@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://UI/Card_UI/card_hand.gd" id="1"]
+[ext_resource type="Script" path="res://UI/Card_UI/card_sounds.gd" id="2"]
 
 [node name="CardHand" type="CanvasLayer"]
 
@@ -13,6 +14,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture_filter = 1
 script = ExtResource("1")
+
+[node name="CardSounds" type="AudioStreamPlayer" parent="Hand"]
+script = ExtResource("2")
 
 [node name="Actions" type="HBoxContainer" parent="Hand"]
 visible = false
