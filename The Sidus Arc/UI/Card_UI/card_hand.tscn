@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://UI/Card_UI/card_hand.gd" id="1"]
+
+[node name="CardHand" type="CanvasLayer"]
+
+[node name="Hand" type="Control" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 1
+script = ExtResource("1")
+
+[node name="Actions" type="HBoxContainer" parent="Hand"]
+visible = false
+z_index = 2
+theme_override_constants/separation = 12
+
+[node name="Back" type="Button" parent="Hand/Actions"]
+custom_minimum_size = Vector2(72, 34)
+layout_mode = 2
+text = "Back"
+
+[node name="Cast" type="Button" parent="Hand/Actions"]
+custom_minimum_size = Vector2(72, 34)
+layout_mode = 2
+text = "Cast"

@@ -4,7 +4,7 @@ var base_deck: Array[Card]
 var current_deck: Array[Card]
 
 func _init(p_base_deck: Array[Card]) -> void:
-	base_deck = p_base_deck
+	base_deck = p_base_deck.duplicate()
 	current_deck = base_deck
 
 func draw_cards(num: int) -> Array[Card]:
