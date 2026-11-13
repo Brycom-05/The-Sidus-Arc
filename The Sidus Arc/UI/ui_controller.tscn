@@ -2,29 +2,28 @@
 
 [ext_resource type="Script" uid="uid://bcde5qtkpsx8o" path="res://UI/ui_controller.gd" id="1_mx0gf"]
 [ext_resource type="PackedScene" uid="uid://cqw8hqfovcryp" path="res://UI/Camera/main_camera.tscn" id="2_2m40q"]
-
+[ext_resource type="Script" uid="uid://dlrismy7ku04o" path="res://UI/Camera/main_camera.gd" id="3_1h7k2"]
 [ext_resource type="PackedScene" path="res://UI/Card_UI/card_hand.tscn" id="3_card_hand"]
 [ext_resource type="PackedScene" path="res://UI/PlayerUI/player_ui.tscn" id="4_player_ui"]
-[ext_resource type="Texture2D" path="res://UI/End_Turn/endturn.png" id="5_end_turn"]
-[ext_resource type="Script" path="res://UI/End_Turn/end_turn_hover.gd" id="6_end_turn_hover"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_end_turn"]
-atlas = ExtResource("5_end_turn")
-region = Rect2(0, 30, 100, 45)
+[ext_resource type="Texture2D" uid="uid://dr02wbvgub872" path="res://UI/End_Turn/endturn.png" id="5_end_turn"]
+[ext_resource type="Script" uid="uid://dqc7lb2u8et3v" path="res://UI/End_Turn/end_turn_hover.gd" id="6_end_turn_hover"]
 
 [node name="UIController" type="Node2D" unique_id=486333169]
 script = ExtResource("1_mx0gf")
 
 [node name="MainCamera" parent="." unique_id=1575014077 instance=ExtResource("2_2m40q")]
 zoom = Vector2(0.5, 0.5)
+script = ExtResource("3_1h7k2")
 
-[node name="CardHand" parent="." instance=ExtResource("3_card_hand")]
+[node name="CardHand" parent="." unique_id=1927872709 instance=ExtResource("3_card_hand")]
 
-[node name="PlayerUI" parent="." instance=ExtResource("4_player_ui")]
+[node name="PlayerUI" parent="." unique_id=314706339 instance=ExtResource("4_player_ui")]
 
-[node name="EndTurn" type="CanvasLayer" parent="."]
+[node name="EndTurn" type="CanvasLayer" parent="." unique_id=1898180653]
 
-[node name="HoverArea" type="Control" parent="EndTurn"]
+[node name="HoverArea" type="Control" parent="EndTurn" unique_id=91913386]
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -36,9 +35,13 @@ offset_bottom = -16.0
 mouse_filter = 1
 script = ExtResource("6_end_turn_hover")
 
-[node name="Artwork" type="TextureRect" parent="EndTurn/HoverArea"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+[node name="EndTurnButton" type="TextureButton" parent="EndTurn/HoverArea" unique_id=1546238575]
 texture_filter = 1
-texture = SubResource("AtlasTexture_end_turn")
+layout_mode = 0
+offset_top = -11.0
+offset_right = 200.0
+offset_bottom = 89.0
+texture_normal = ExtResource("5_end_turn")
+stretch_mode = 6
+
+[connection signal="pressed" from="EndTurn/HoverArea/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
