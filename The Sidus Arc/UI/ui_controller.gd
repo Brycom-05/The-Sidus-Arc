@@ -16,4 +16,6 @@ func play_effect(card_effect: CardEffect) -> void:
 	# Play animation
 	# Update ui for those effects
 	card_effect_animation_ended.emit()
-	
+
+func _on_end_turn_button_pressed() -> void:
+	player_ends_plan_phase.emit()
