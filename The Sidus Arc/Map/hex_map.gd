@@ -1,6 +1,6 @@
 class_name HexMap extends Node2D
 
-@onready var base_layer = $BaseLayer
+@onready var base_layer: TileMapLayer = $BaseLayer
 
 const DEFAULT_MAP_SIZE := Vector2i(12, 8)
 
@@ -76,3 +76,20 @@ func get_characters() -> Array[MapCharacter]:
 ## TODO
 func reveal_enemy_moves() -> void:
 	pass
+
+### Returns 2 Vector2, representing top left, and bottom right
+func get_map_bounds() -> Rect2:
+	var top_left:= Vector2i(0, 0)
+	var bottom_right:= Vector2i(0, 0)
+	for cell: Vector2i in base_layer.get_used_cells():
+		var real_cell := to_global(base_layer.map_to_local(cell))
+		
+		top_left.x = min(top_left.x, real_cell.x)
+		top_left.y = min(top_left.y, real_cell.y)
+		bottom_right.x = max(bottom_right.x, real_cell.x)
+		bottom_right.y = max(bottom_right.y, real_cell.y)
+	
+	var middle := Vector2((bottom_right.x - top_left.x) / 2.0, (bottom_right.y - top_left.y) / 2.0)
+	var size := Vector2(bottom_right.x - top_left.x, bottom_right.y - top_left.y)
+	
+	return Rect2(middle, size)
