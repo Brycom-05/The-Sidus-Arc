@@ -1,13 +1,14 @@
 class_name BattleController extends RefCounted
 
-static var _instance: BattleController = BattleController.new()
+static var _instance: BattleController = null
+
+var _turn_manager := TurnManager.new()
 
 var resolution_card_effects: Array[CharacterEffectTuple] = []
 
 class CharacterEffectTuple:
 	var character: MapCharacter
 	var effect: CardEffect
-	
 	
 	func _init(p_character: MapCharacter, p_effect: CardEffect) -> void:
 		character = p_character
@@ -18,8 +19,32 @@ static func instance() -> BattleController:
 		printerr("Singleton not created yet.")
 	return _instance
 
-func _init() -> void:
-	UIController.instance().player_ends_plan_phase.connect(plan_phase_end)
+static func instantiate() -> void:
+	_instance = BattleController.new()
+	UIController.instance().player_ends_plan_phase.connect(_instance.continue_turn)
+
+func start_level() -> void:
+	_turn_manager.reset()
+	next_turn()
+
+func next_turn() -> void:
+	reveal_phase()
+	plan_phase_start()
+	print("Starting turn ", _turn_manager.get_turn())
+
+func continue_turn() -> void:
+	print("Continuing")
+	plan_phase_end()
+	resolution_phase()
+
+func end_turn() -> void:
+	var status: int = cleanup_phase()
+	
+	if status == 1 or status == -1:
+		# TODO: Win/Loss stuff
+		return
+	
+	_turn_manager.next_turn()
 
 ##  The AI's committed card, destination, and any target tile are shown to the player.
 func reveal_phase() -> void:
@@ -30,17 +55,18 @@ func reveal_phase() -> void:
 		
 		var enemy_character: EnemyCharacter = character
 		enemy_character.pick_move()
-		
-		HexMap.instance().reveal_enemy_moves()
+	
+	HexMap.instance().reveal_enemy_moves()
 
 ## The player chooses a movement destination or one card from their hand. 
 ## Cards that need a target require the player to select a tile. 
 ## The player confirms the action before resolution begins.
 func plan_phase_start() -> void:
+	# TODO: Refresh player cards here
 	PlayerStateMachine.instance().set_player_can_place_cards(true)
 
 func plan_phase_end() -> void:
-	# TODO: Take in moves here
+	# TODO: Get moves here
 	
 	PlayerStateMachine.instance().set_player_can_place_cards(false)
 
@@ -81,6 +107,7 @@ func play_next_card_effect() -> void:
 
 ## The game checks for victory or defeat, discards played cards, 
 ## draws replacements when possible, updates the round counter, and generates the AI's next intent.
-func cleanup_phase() -> void:
+## Returns 0 to continue, 1 for win, -1 for loss
+func cleanup_phase() -> int:
 	# TODO
-	pass
+	return 0
