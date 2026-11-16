@@ -1,7 +1,12 @@
 class_name TurnManager extends RefCounted
 
-var _current_turn: int
-var _player_turn: String
+static var _instance: TurnManager = TurnManager.new()
+
+static func instance() -> TurnManager:
+	return _instance
+
+var _current_turn: int = 0
+var _player_turn: String = "Player"
 
 func _init() -> void:
 	reset()
@@ -17,6 +22,10 @@ func get_turn() -> int:
 ## may switch this to a bool
 func get_character_turn() -> String:
 	return _player_turn
+
+# set which character's turn it is
+func set_character_turn(who: String) -> void:
+	_player_turn = who
 	
 ## Increment turn count
 func next_turn() -> void:
