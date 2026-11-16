@@ -2,13 +2,12 @@ class_name ManaPool extends RefCounted
 
 signal update_mana_ui
 
-var _mana_pool: float
-var _recharge_rate: float
+var _mana_pool: float = 0.0
+var _recharge_rate: float = 0.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	_mana_pool = 0
-	_recharge_rate = 0
+# initialize with starting mana
+func _init(starting_mana: float) -> void:
+	_mana_pool = starting_mana
 	
 func get_mana() -> float:
 	return _mana_pool
@@ -18,6 +17,7 @@ func get_mana() -> float:
 func deplete_mana(mana_cost: float) -> void:
 	if can_play_card(mana_cost):
 		_mana_pool -= mana_cost
+		update_mana_ui.emit()
 	
 	
 # Determines if a card can be played
@@ -32,7 +32,4 @@ func can_play_card(mana_cost: float) -> bool:
 # TODO
 func recharge_mana() -> void:
 	_mana_pool += 1
-	
-# This function emits a signal when mana changes
-func mana_changed() -> void:
 	update_mana_ui.emit()
