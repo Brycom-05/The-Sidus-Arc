@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bw1olyketbdry"]
+
+[ext_resource type="Script" uid="uid://0bodopagp7q0" path="res://Test/test_card_ui.gd" id="1_jsoud"]
+[ext_resource type="PackedScene" uid="uid://dligybt2gyu8c" path="res://UI/ui_controller.tscn" id="2_d38du"]
+[ext_resource type="PackedScene" uid="uid://cj8bp38wiqkoi" path="res://Map/level_manager.tscn" id="3_d38du"]
+
+[node name="Control" type="Control" unique_id=799084709]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jsoud")
+
+[node name="UIController" parent="." unique_id=486333169 instance=ExtResource("2_d38du")]
+
+[node name="Hand" parent="UIController/CardHand" parent_id_path=PackedInt32Array(486333169, 1927872709) index="0"]
+layout_mode = 3
+
+[node name="Actions" parent="UIController/CardHand/Hand" index="1"]
+layout_mode = 0
+
+[node name="LevelManager" parent="." unique_id=1043546828 instance=ExtResource("3_d38du")]
+
+[editable path="UIController"]
+[editable path="UIController/CardHand"]
