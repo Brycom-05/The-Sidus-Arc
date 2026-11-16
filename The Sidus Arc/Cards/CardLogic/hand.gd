@@ -17,3 +17,10 @@ func refresh_hand() -> void:
 
 func pick_random() -> Card:
 	return hand.pick_random()
+
+# Remove a card and place it in the discard pile
+func play_card(card: Card) -> void:
+	if not hand.has(card):
+		return
+	hand.erase(card)
+	deck.discard.add(card)
