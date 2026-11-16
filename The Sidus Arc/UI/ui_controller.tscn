@@ -16,6 +16,7 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("3_1h7k2")
 
 [node name="CardHand" parent="." unique_id=1927872709 instance=ExtResource("3_card_hand")]
+unique_name_in_owner = true
 
 [node name="PlayerUI" parent="." unique_id=314706339 instance=ExtResource("4_player_ui")]
 
