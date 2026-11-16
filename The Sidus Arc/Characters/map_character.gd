@@ -5,11 +5,7 @@ static var NUMBER_OF_CHARACTERS: int = 0
 var id: int
 var _card_effects: Array[CardEffect] = []
 var _tile: Vector2i = Vector2i(0, 0)
-<<<<<<< HEAD
-var mana_pool := ManaPool.new(5.0)
-=======
 var mana_pool := ManaPool.new(0.0)
->>>>>>> 21d9565c86dcf6210b1326273e9790ad100987e9
 
 func _init() -> void:
 	id = NUMBER_OF_CHARACTERS
