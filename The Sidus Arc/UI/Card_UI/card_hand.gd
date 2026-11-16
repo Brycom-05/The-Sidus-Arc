@@ -18,15 +18,22 @@ const STAGE_ONE_CARDS: Dictionary[String, Texture2D] = {
 
 @onready var actions: HBoxContainer = $Actions
 @onready var card_sounds: CardSounds = $CardSounds
+<<<<<<< HEAD
 @onready var play_button: Button = $Actions/Cast
+=======
+>>>>>>> 21d9565c86dcf6210b1326273e9790ad100987e9
 
 var cards: Array[TextureButton] = []
 var movements: Dictionary[TextureButton, Tween] = {}
 var selected_card: TextureButton
 var hovered_card: TextureButton
 var card_by_button: Dictionary[TextureButton, Card] = {}
+<<<<<<< HEAD
 var hand: Hand
 var character: MapCharacter
+=======
+
+>>>>>>> 21d9565c86dcf6210b1326273e9790ad100987e9
 
 func _ready() -> void:
 	$Actions/Back.pressed.connect(_return_card)
@@ -85,6 +92,7 @@ func _build_cards() -> void:
 	print("cards built: ", cards.size())
 	_layout()
 
+<<<<<<< HEAD
 # creates the card as a button
 func _make_card_button(card_data: Card) -> TextureButton:
 	var button := TextureButton.new()
@@ -144,6 +152,8 @@ func _play_selected() -> void:
 		hand_card.disabled = false
 		_move_card(hand_card)
 
+=======
+>>>>>>> 21d9565c86dcf6210b1326273e9790ad100987e9
 func _fan_slot(card: TextureButton) -> float:
 	return cards.find(card) - (cards.size() - 1) / 2.0
 
