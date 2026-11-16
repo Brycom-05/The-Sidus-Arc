@@ -35,8 +35,19 @@ func _process(delta: float) -> void:
 	
 	last_mouse_pos = get_viewport().get_mouse_position()
 	position += camera_vector.normalized() * CAMERA_VELOCITY * delta
+	clamp_bounds()
 
 
 func clamp_zoom() -> void:
 	zoom.x = clamp(zoom.x, ZOOM_BOUNDS.x, ZOOM_BOUNDS.y)
 	zoom.y = clamp(zoom.y, ZOOM_BOUNDS.x, ZOOM_BOUNDS.y)
+
+func clamp_bounds() -> void:
+	var map_bounds := HexMap.instance().get_map_bounds()
+	var camera_offset := get_viewport_rect().size / 2.0
+	
+	var center := map_bounds.get_center() - camera_offset
+	var bounds := Vector2(map_bounds.size.x, map_bounds.size.y)
+	
+	global_position.x = clamp(global_position.x, center.x - bounds.x, center.x + bounds.x)
+	global_position.y = clamp(global_position.y, center.y - bounds.y, center.y + bounds.y)
