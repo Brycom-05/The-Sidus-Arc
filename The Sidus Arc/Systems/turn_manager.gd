@@ -1,21 +1,12 @@
 class_name TurnManager extends RefCounted
 
 static var _instance: TurnManager = TurnManager.new()
-<<<<<<< HEAD
-=======
-
-static func instance() -> TurnManager:
-	return _instance
 
 var _current_turn: int = 0
 var _player_turn: String = "Player"
->>>>>>> 21d9565c86dcf6210b1326273e9790ad100987e9
 
 static func instance() -> TurnManager:
 	return _instance
-
-var _current_turn: int = 0
-var _player_turn: String = "Player"
 
 func _init() -> void:
 	reset()
