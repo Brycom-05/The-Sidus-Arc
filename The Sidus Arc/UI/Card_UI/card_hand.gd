@@ -23,6 +23,7 @@ var cards: Array[TextureButton] = []
 var movements: Dictionary[TextureButton, Tween] = {}
 var selected_card: TextureButton
 var hovered_card: TextureButton
+var card_by_button: Dictionary[TextureButton, Card] = {}
 
 
 func _ready() -> void:
@@ -43,7 +44,6 @@ func _ready() -> void:
 	$Actions/Back.pressed.connect(_return_card)
 	resized.connect(_layout)
 	_layout()
-
 
 func _fan_slot(card: TextureButton) -> float:
 	return cards.find(card) - (cards.size() - 1) / 2.0
