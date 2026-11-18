@@ -77,19 +77,14 @@ func get_characters() -> Array[MapCharacter]:
 func reveal_enemy_moves() -> void:
 	pass
 
-### Returns 2 Vector2, representing top left, and bottom right
+## Returns the map's tile bounds in global coordinates.
 func get_map_bounds() -> Rect2:
-	var top_left:= Vector2i(0, 0)
-	var bottom_right:= Vector2i(0, 0)
-	for cell: Vector2i in base_layer.get_used_cells():
-		var real_cell := to_global(base_layer.map_to_local(cell))
-		
-		top_left.x = min(top_left.x, real_cell.x)
-		top_left.y = min(top_left.y, real_cell.y)
-		bottom_right.x = max(bottom_right.x, real_cell.x)
-		bottom_right.y = max(bottom_right.y, real_cell.y)
-	
-	var middle := Vector2((bottom_right.x - top_left.x) / 2.0, (bottom_right.y - top_left.y) / 2.0)
-	var size := Vector2(bottom_right.x - top_left.x, bottom_right.y - top_left.y)
-	
-	return Rect2(middle, size)
+	var cells := base_layer.get_used_cells()
+	if cells.is_empty():
+		return Rect2(base_layer.global_position, Vector2.ZERO)
+	var tile_size := Vector2(base_layer.tile_set.tile_size)
+	var bounds := Rect2(base_layer.map_to_local(cells[0]) - tile_size / 2.0, tile_size)
+	for cell: Vector2i in cells:
+		var tile_bounds := Rect2(base_layer.map_to_local(cell) - tile_size / 2.0, tile_size)
+		bounds = bounds.merge(tile_bounds)
+	return base_layer.global_transform * bounds
