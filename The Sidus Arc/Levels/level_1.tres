@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://4iuy2wbckyeu"]
+
+[ext_resource type="PackedScene" uid="uid://qansq0pdftcl" path="res://Cutscenes/cutscene_after_level_1.tscn" id="1_nfs6a"]
+[ext_resource type="Script" uid="uid://dboyocxbgumbj" path="res://Levels/level_data.gd" id="1_rovgj"]
+[ext_resource type="PackedScene" uid="uid://d4hp3g1ucxb0d" path="res://Cutscenes/cutscene_before_level_1.tscn" id="1_vsp4g"]
+
+[resource]
+script = ExtResource("1_rovgj")
+level_name = "Level1"
+player_start = Vector2i(1, 4)
+enemy_starts = Array[Vector2i]([Vector2i(10, 2), Vector2i(10, 5)])
+enemy_deck_ids = Array[int]([1, 1])
+tile_coords = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)])
+before_cutscene = ExtResource("1_vsp4g")
+after_cutscene = ExtResource("1_nfs6a")
+metadata/_custom_type_script = "uid://dboyocxbgumbj"
