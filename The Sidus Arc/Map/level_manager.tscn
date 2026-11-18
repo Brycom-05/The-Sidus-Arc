@@ -2,8 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://xesimyvum4t5" path="res://Map/hex_map.tscn" id="1_ce7a5"]
 [ext_resource type="Script" uid="uid://cfgihchhc83xs" path="res://Map/level_manager.gd" id="1_y0d8h"]
+[ext_resource type="AudioStream" path="res://Audio/StageOne/stage1_backgroundmusic.mp3" id="3_music"]
+[ext_resource type="Script" uid="uid://dboyocxbgumbj" path="res://Levels/level_data.gd" id="2_iv5we"]
+[ext_resource type="Resource" uid="uid://4iuy2wbckyeu" path="res://Levels/level_1.tres" id="3_2swdv"]
+[ext_resource type="Resource" uid="uid://bw02v83cq7wfm" path="res://Levels/level_2.tres" id="4_0u3qb"]
+[ext_resource type="Resource" uid="uid://d1tyik62ktsss" path="res://Levels/level_3.tres" id="5_ups64"]
+[ext_resource type="PackedScene" uid="uid://cql6ofhg810xi" path="res://Cutscenes/cutscene_intro.tscn" id="6_0u3qb"]
 
 [node name="LevelManager" type="Node2D" unique_id=1043546828]
 script = ExtResource("1_y0d8h")
+levels = Array[ExtResource("2_iv5we")]([ExtResource("3_2swdv"), ExtResource("4_0u3qb"), ExtResource("5_ups64")])
+intro_cutscene = ExtResource("6_0u3qb")
 
 [node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_ce7a5")]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_music")
+volume_db = -12.0
