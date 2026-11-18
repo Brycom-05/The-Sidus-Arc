@@ -7,6 +7,11 @@ const ZOOM_BOUNDS := Vector2(0.25, 1.3)
 
 var last_mouse_pos: Vector2
 
+func center_on_map() -> void:
+	global_position = HexMap.instance().get_map_bounds().get_center()
+	reset_smoothing()
+	force_update_scroll()
+
 func _process(delta: float) -> void:
 	
 	var camera_vector: Vector2 = Vector2(0, 0)
@@ -44,9 +49,7 @@ func clamp_zoom() -> void:
 
 func clamp_bounds() -> void:
 	var map_bounds := HexMap.instance().get_map_bounds()
-	var camera_offset := get_viewport_rect().size / 2.0
-	
-	var center := map_bounds.get_center() - camera_offset
+	var center := map_bounds.get_center()
 	var bounds := Vector2(map_bounds.size.x, map_bounds.size.y)
 	
 	global_position.x = clamp(global_position.x, center.x - bounds.x, center.x + bounds.x)

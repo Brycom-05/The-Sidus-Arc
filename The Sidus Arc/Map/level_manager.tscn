@@ -2,8 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://xesimyvum4t5" path="res://Map/hex_map.tscn" id="1_ce7a5"]
 [ext_resource type="Script" uid="uid://cfgihchhc83xs" path="res://Map/level_manager.gd" id="1_y0d8h"]
+[ext_resource type="AudioStream" path="res://Audio/StageOne/stage1_backgroundmusic.mp3" id="3_music"]
 
 [node name="LevelManager" type="Node2D" unique_id=1043546828]
 script = ExtResource("1_y0d8h")
 
 [node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_ce7a5")]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_music")
+volume_db = -12.0
