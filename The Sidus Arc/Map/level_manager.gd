@@ -71,12 +71,14 @@ func load_level(index: int) -> void:
 
 	var data: LevelData = levels[index]
 
+
 	var deck := CardDatabase.create_deck_from_ids(STAGE_ONE_CARD_IDS)
 	player = PlayerCharacter.new(deck)
 	player.mana_pool = ManaPool.new(STARTING_MANA)
 	player.next_turn()
 	hex_map.add_character(player)
 	hex_map.place_character(player, data.player_start)
+
 	UIController.instance().show_player_hand(player)
 
 	BattleController.instance().start_level()

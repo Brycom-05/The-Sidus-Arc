@@ -23,7 +23,7 @@ func play_card(card: Card, character: MapCharacter) -> bool:
 	if not CardController.instance().can_play_card(card, character, self):
 		return false
 
-	character.deplete_mana(card.get_mana_cost())
+	character.mana_pool.deplete_mana(card.get_mana_cost())
 	# TODO do card effect
 	hand.erase(card)
 	deck.discard.add(card)

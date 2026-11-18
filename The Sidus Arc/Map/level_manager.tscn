@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://d1tyik62ktsss" path="res://Levels/level_3.tres" id="5_ups64"]
 [ext_resource type="PackedScene" uid="uid://cql6ofhg810xi" path="res://Cutscenes/cutscene_intro.tscn" id="6_0u3qb"]
 
+
 [node name="LevelManager" type="Node2D" unique_id=1043546828]
 script = ExtResource("1_y0d8h")
 levels = Array[ExtResource("2_iv5we")]([ExtResource("3_2swdv"), ExtResource("4_0u3qb"), ExtResource("5_ups64")])
