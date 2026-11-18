@@ -14,6 +14,7 @@ const STAGE_ONE_CARDS: Dictionary[String, Texture2D] = {
 	"Fireball": preload("res://UI/Card_UI/StageOne_Cards/stage1_fireball.png"),
 	"Ice Blast": preload("res://UI/Card_UI/StageOne_Cards/stage1_iceblast.png"),
 	"Mana Blast": preload("res://UI/Card_UI/StageOne_Cards/stage1_manablast.png"),
+	"Wind Blast": preload("res://UI/Card_UI/StageOne_Cards/stage1_windblast.png"),
 }
 
 @onready var actions: HBoxContainer = $Actions
@@ -33,36 +34,17 @@ func _ready() -> void:
 	play_button.pressed.connect(_play_selected)
 	resized.connect(_layout)
 	_layout()
-	
-	# Hard coded cards test script
-	#for card_name in STAGE_ONE_CARDS:
-		#var card := TextureButton.new()
-		#card.texture_normal = STAGE_ONE_CARDS[card_name]
-		#card.ignore_texture_size = true
-		#card.stretch_mode = TextureButton.STRETCH_SCALE
-		#card.size = CARD_SIZE
-		#card.pivot_offset = Vector2(CARD_SIZE.x / 2.0, CARD_SIZE.y)
-		#card.accessibility_name = card_name
-		#card.mouse_entered.connect(_on_card_hover.bind(card))
-		#card.mouse_exited.connect(_on_card_exit.bind(card))
-		#card.pressed.connect(_select_card.bind(card))
-		#add_child(card)
-		#cards.append(card)
-	
+
 func setup(p_hand: Hand, p_character: MapCharacter) -> void:
+	if is_instance_valid(character):
+		character.mana_pool.update_mana_ui.disconnect(_update_play_button)
 	hand = p_hand
 	character = p_character
 	character.mana_pool.update_mana_ui.connect(_update_play_button)
 	_build_cards()
-	
-	print("CardHand size: ", size, " parent: ", get_parent())
-	for c in cards:
-		print(c.global_position, " ", c.size, " ", c.texture_normal)
-	
+
 # Builds the cards
 func _build_cards() -> void:
-	print("hand.hand size: ", hand.hand.size(), " contents ", hand.hand)
-	
 	# remove old cards
 	for old in cards:
 		if movements.has(old):
@@ -73,6 +55,7 @@ func _build_cards() -> void:
 	movements.clear()
 	selected_card = null
 	hovered_card = null
+	actions.hide()
 	
 	for card_data in hand.hand:
 		if card_data == null:
@@ -81,8 +64,6 @@ func _build_cards() -> void:
 		add_child(button)
 		cards.append(button)
 		card_by_button[button] = card_data
-		print("built button for ", card_data.get_title())
-	print("cards built: ", cards.size())
 	_layout()
 
 # creates the card as a button
@@ -217,6 +198,7 @@ func _select_card(card: TextureButton) -> void:
 		hand_card.disabled = true
 		_move_card(hand_card, hand_card == selected_card)
 	card.z_index = 1
+	_update_play_button()
 	actions.show()
 	$Actions/Back.grab_focus()
 
