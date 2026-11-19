@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://c7bg08ud0lno6" path="res://Map/hex_map.gd" id="1_bd8w8"]
 [ext_resource type="Texture2D" uid="uid://b2dthr6qqau34" path="res://Map/Map_Assets/StageOne/stage_one_tilesheet.png" id="2_uspy6"]
 [ext_resource type="Texture2D" uid="uid://cbss66gra2c1l" path="res://Map/Map_Assets/StageOne/stage_one_object_sheet.png" id="3_5c7xm"]
+[ext_resource type="Texture2D" uid="uid://cq1i7cbj4f0nw" path="res://Map/Map_Assets/StageTwo/tile1.png" id="4_5c7xm"]
+[ext_resource type="Texture2D" uid="uid://cocnxvi53auw5" path="res://Map/Map_Assets/StageTwo/tile2.png" id="5_en68j"]
+[ext_resource type="Texture2D" uid="uid://cm5x7gdv5chbm" path="res://Map/Map_Assets/StageTwo/tile3.png" id="6_4l15i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efu5v"]
 texture = ExtResource("2_uspy6")
@@ -49,12 +52,30 @@ texture_region_size = Vector2i(64, 64)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, 6)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bht3s"]
+texture = ExtResource("4_5c7xm")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dh1ir"]
+texture = ExtResource("5_en68j")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iaihx"]
+texture = ExtResource("6_4l15i")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_uspy6"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(64, 32)
 sources/1 = SubResource("TileSetAtlasSource_en68j")
 sources/0 = SubResource("TileSetAtlasSource_efu5v")
+sources/2 = SubResource("TileSetAtlasSource_bht3s")
+sources/3 = SubResource("TileSetAtlasSource_dh1ir")
+sources/4 = SubResource("TileSetAtlasSource_iaihx")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uspy6"]
 texture = ExtResource("2_uspy6")
