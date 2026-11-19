@@ -18,13 +18,14 @@ func _ready() -> void:
 	_instance = self
 	generate_map()
 
-func generate_map() -> void:
+func generate_map(source_id: Array[int] = [0], ground_tiles: Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)]) -> void:
 	base_layer.clear()
 	for x: int in range(0, DEFAULT_MAP_SIZE.x):
 		for y: int in range(0, DEFAULT_MAP_SIZE.y):
 			var cell := Vector2i(x, y)
-			base_layer.set_cell(cell, 0, Vector2i(0, 0))
-	
+			base_layer.set_cell(cell, source_id.pick_random(), ground_tiles.pick_random())
+
+
 	# For testing
 	#var deck := CardDatabase.create_deck_from_ids([2])
 	#
