@@ -42,6 +42,7 @@ func _run_level(i: int) -> void:
 	var data: LevelData = levels[i]
 		
 	if i == 0:
+		_generate_level_map(data)
 		await play_cutscene(intro_cutscene)
 	await play_cutscene(data.before_cutscene)
 
@@ -53,12 +54,17 @@ func _run_level(i: int) -> void:
 
 	if (after != null) and (i + 1 < levels.size()):
 		await after.fade_to_black()
-		var next: LevelData = levels[i + 1]
-		HexMap.instance().generate_map(next.tile_sources, next.tile_coords)
+		_generate_level_map(levels[i + 1])
 		await after.fade_from_black()
 
 	if after != null:
 		after.queue_free()	
+
+
+func _generate_level_map(data: LevelData) -> void:
+	var reserved: Array[Vector2i] = [data.player_start]
+	reserved.append_array(data.enemy_starts)
+	hex_map.generate_map(data.tile_sources, data.tile_coords, reserved)
 
 
 func clear_level() -> void:
