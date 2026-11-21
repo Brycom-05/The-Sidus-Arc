@@ -82,15 +82,15 @@ func _rebuild_tile_outlines() -> void:
 				_outline_segments.append(b)
 	_tile_outlines.queue_redraw()
 
-func generate_map() -> void:
+func generate_map(source_id: Array[int] = [0], ground_tiles: Array[Vector2i] = [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0)], reserved_cells: Array[Vector2i] = []) -> void:
 	base_layer.clear()
 	for x: int in range(0, DEFAULT_MAP_SIZE.x):
 		for y: int in range(0, DEFAULT_MAP_SIZE.y):
 			var cell := Vector2i(x, y)
-			base_layer.set_cell(cell, 0, Vector2i(0, 0))
+			base_layer.set_cell(cell, source_id.pick_random(), ground_tiles.pick_random())
 	_rebuild_tile_outlines()
-	_generate_mountains()
-	
+	_generate_mountains(reserved_cells)
+
 	# For testing
 	#var deck := CardDatabase.create_deck_from_ids([2])
 	#
@@ -110,14 +110,16 @@ func generate_map() -> void:
 	#timer.start(2)
 	
 
-func _generate_mountains() -> void:
+func _generate_mountains(reserved_cells: Array[Vector2i] = []) -> void:
+	if reserved_cells.is_empty():
+		reserved_cells = [PLAYER_START_CELL]
 	mountain_cells.clear()
 	for child: Node in _mountains.get_children():
 		_mountains.remove_child(child)
 		child.queue_free()
 	var candidates: Array[Vector2i] = []
 	for cell: Vector2i in base_layer.get_used_cells():
-		if cell != PLAYER_START_CELL and can_place_character(null, cell):
+		if not reserved_cells.has(cell) and can_place_character(null, cell):
 			candidates.append(cell)
 	candidates.shuffle()
 	var mountain_material := ShaderMaterial.new()
