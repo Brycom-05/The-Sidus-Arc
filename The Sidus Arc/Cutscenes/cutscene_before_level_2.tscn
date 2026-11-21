@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cuqehhuo0es5o"]
+
+[ext_resource type="Script" uid="uid://hxujw6e21o2q" path="res://Cutscenes/cutscenes.gd" id="1_ioakl"]
+[ext_resource type="Texture2D" uid="uid://bgxlku5aopie0" path="res://icon.svg" id="2_p5rup"]
+
+[node name="CutsceneBeforeLevel2" type="Control" unique_id=1881799908]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ioakl")
+text = "before level 2"
+
+[node name="Background" type="ColorRect" parent="." unique_id=2108509224]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.10980392, 0.10980392, 0.10980392, 0.64705884)
+
+[node name="PortraitLeft" type="TextureRect" parent="." unique_id=2076388301]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -280.0
+offset_right = 100.0
+offset_bottom = -180.0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_p5rup")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortraitRight" type="TextureRect" parent="." unique_id=889352105]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -280.0
+offset_bottom = -180.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+texture = ExtResource("2_p5rup")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="TextBox" type="PanelContainer" parent="." unique_id=1823064678]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="TextBox" unique_id=1014180965]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="TextBox/Margin" unique_id=1147369291]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
