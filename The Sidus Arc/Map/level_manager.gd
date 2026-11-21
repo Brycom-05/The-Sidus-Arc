@@ -20,6 +20,7 @@ func start_level(level: int) -> void:
 	player.mana_pool = ManaPool.new(STARTING_MANA)
 	player.next_turn()
 	hex_map.add_character(player)
+	hex_map.place_character(player, HexMap.PLAYER_START_CELL)
 	UIController.instance().show_player_hand(player)
 
 	BattleController.instance().start_level()
