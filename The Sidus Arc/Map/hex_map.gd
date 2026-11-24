@@ -1,6 +1,7 @@
 class_name HexMap extends Node2D
 
 @onready var base_layer: TileMapLayer = $BaseLayer
+@onready var enemy_telegraph_layer: TileMapLayer = $EnemyTelegraphs
 
 const DEFAULT_MAP_SIZE := Vector2i(12, 8)
 const PLAYER_START_CELL := Vector2i(0, DEFAULT_MAP_SIZE.y - 1)
@@ -91,25 +92,6 @@ func generate_map(source_id: Array[int] = [0], ground_tiles: Array[Vector2i] = [
 	_rebuild_tile_outlines()
 	_generate_mountains(reserved_cells)
 
-	# For testing
-	#var deck := CardDatabase.create_deck_from_ids([2])
-	#
-	#var player := PlayerCharacter.new(deck)
-	#var enemy := EnemyCharacter.new(deck)
-	#
-	#add_character(player)
-	#add_character(enemy)
-	#
-	#place_character(player, Vector2i(0, 0))
-	#place_character(enemy, Vector2i(4, 5))
-	#
-	#timer = Timer.new()
-	#timer.one_shot = true
-	#timer.timeout.connect(test_env)
-	#add_child(timer)
-	#timer.start(2)
-	
-
 func _generate_mountains(reserved_cells: Array[Vector2i] = []) -> void:
 	if reserved_cells.is_empty():
 		reserved_cells = [PLAYER_START_CELL]
@@ -140,10 +122,6 @@ func _generate_mountains(reserved_cells: Array[Vector2i] = []) -> void:
 		mountain.material = mountain_material
 		_mountains.add_child(mountain)
 	_mountains.transform = base_layer.transform
-
-func test_env() -> void:
-	BattleController.instance().reveal_phase()
-	BattleController.instance().resolution_phase()
 
 func add_character(character: MapCharacter) -> void:
 	map_characters.push_back(character)
@@ -182,9 +160,19 @@ func can_place_character(character: MapCharacter, cell: Vector2i) -> bool:
 func get_characters() -> Array[MapCharacter]:
 	return map_characters
 
-## TODO
-func reveal_enemy_moves() -> void:
-	pass
+func reveal_enemy_moves(card_effects: Array[CardEffect]) -> void:
+	enemy_telegraph_layer.clear()
+	
+	var dict: Dictionary[Vector2i, int] = {}
+	
+	for effect: CardEffect in card_effects:
+		if effect is AttackEffect:
+			for tile in (effect as AttackEffect).get_targetted_tiles():
+				dict[tile] = 1
+	
+	for tile: Vector2i in dict:
+		enemy_telegraph_layer.set_cell(tile, 0, Vector2i(0, 0))
+	
 
 ## Returns the map's tile bounds in global coordinates.
 func get_map_bounds() -> Rect2:
