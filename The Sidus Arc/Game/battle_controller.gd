@@ -48,15 +48,16 @@ func end_turn() -> void:
 
 ##  The AI's committed card, destination, and any target tile are shown to the player.
 func reveal_phase() -> void:
+	var card_effects: Array[CardEffect] = []
 	# TODO: Potentially priority system for AI's if they depend on one another
 	for character: MapCharacter in HexMap.instance().get_characters():
 		if character is not EnemyCharacter:
 			continue
 		
 		var enemy_character: EnemyCharacter = character
-		enemy_character.pick_move()
+		card_effects.append_array(enemy_character.pick_move())
 	
-	HexMap.instance().reveal_enemy_moves()
+	HexMap.instance().reveal_enemy_moves(card_effects)
 
 ## The player chooses a movement destination or one card from their hand. 
 ## Cards that need a target require the player to select a tile. 
