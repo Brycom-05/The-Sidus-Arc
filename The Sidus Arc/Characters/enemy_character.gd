@@ -2,9 +2,15 @@ class_name EnemyCharacter extends MapCharacter
 
 var _hand: Hand
 
-func _init(p_deck: Deck) -> void:
+func _init(p_deck: Deck, sprite_texture: Texture2D = null) -> void:
 	super()
-	modulate = Color(1, 0.4, 0.4)
+	if sprite_texture == null:
+		modulate = Color(1, 0.4, 0.4)
+	else:
+		var sprite_size := texture.get_size() * scale
+		texture = sprite_texture
+		scale = Vector2.ONE * (sprite_size.x / texture.get_width())
+		texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	
 	_hand = Hand.new(p_deck)
 	next_turn()

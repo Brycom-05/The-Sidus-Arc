@@ -90,7 +90,8 @@ func load_level(index: int) -> void:
 	BattleController.instance().start_level()
 
 	for cell: Vector2i in data.enemy_starts:
-		var enemy := EnemyCharacter.new(CardDatabase.create_deck_from_ids(data.enemy_deck_ids))
+		var enemy_deck := CardDatabase.create_deck_from_ids(data.enemy_deck_ids)
+		var enemy := EnemyCharacter.new(enemy_deck, data.enemy_texture)
 		hex_map.add_character(enemy)
 		hex_map.place_character(enemy, cell)
 
