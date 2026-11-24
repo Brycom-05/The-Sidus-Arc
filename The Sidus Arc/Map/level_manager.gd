@@ -30,7 +30,7 @@ func play_cutscene(scene: PackedScene, keep_open: bool = false) -> Cutscene:
 	return null
 
 func start_level(level: int) -> void:
-	background_music.play()
+	#background_music.play()
 	if is_instance_valid(player):
 		hex_map.remove_character(player)
 		player.queue_free()
