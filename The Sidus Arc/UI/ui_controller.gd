@@ -1,6 +1,10 @@
 class_name UIController extends Node
 
-static var _instance: UIController = UIController.new()
+static var _instance: UIController = null
+
+@onready var mana_bar: TextureProgressBar = $PlayerUI/Bars/Mana
+
+var _mana_pool: ManaPool
 
 # signals for game-logic to wait on
 signal player_ends_plan_phase
@@ -11,6 +15,20 @@ static func instance() -> UIController:
 		printerr("Singleton not created yet.")
 	return _instance
 
+func _ready() -> void:
+	_instance = self
+
+func show_player_hand(player: PlayerCharacter) -> void:
+	$CardHand/Hand.setup(player.hand, player)
+	if _mana_pool != null:
+		_mana_pool.update_mana_ui.disconnect(_update_mana_bar)
+	_mana_pool = player.mana_pool
+	_mana_pool.update_mana_ui.connect(_update_mana_bar)
+	_update_mana_bar()
+
+func _update_mana_bar() -> void:
+	mana_bar.value = _mana_pool.get_mana()
+
 ## TODO Call after resolution phases
 func play_effect(card_effect: CardEffect) -> void:
 	# Play animation
@@ -18,4 +36,6 @@ func play_effect(card_effect: CardEffect) -> void:
 	card_effect_animation_ended.emit()
 
 func _on_end_turn_button_pressed() -> void:
-	player_ends_plan_phase.emit()
+	if PlayerStateMachine.instance().get_player_can_place_cards():
+		print("Emit")
+		player_ends_plan_phase.emit()

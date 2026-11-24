@@ -8,36 +8,48 @@ class_name CardDatabase extends RefCounted
 ## 	title: String
 ## 	mana_cost: int
 ## 	capabilities: Array[CardCapability]
+##		Each object is a movement or attack
+## card_art: Texture2D
 ## }
 static var CARDS: Dictionary = {
 	1: {
 		"title": "fireball",
 		"mana_cost": 3,
 		"capabilities": [
-			{"type": "attack"},
-			{"attack_range": 3},
-			{"damage": 2}
-		]
+			{"type": "attack", "attack_range": 3, "damage": 2}
+		],
 	},
 	
 	2: {
 		"title": "mana blast",
 		"mana_cost": 1,
 		"capabilities": [
-			{"type": "attack"},
-			{"attack_range": 2},
-			{"damage": 1}
-		]
+			{"type": "attack", "attack_range": 2, "damage": 1}
+		],
 	},
 	
 	3: {
 		"title": "ice blast",
 		"mana_cost": 2,
 		"capabilities": [
-			{"type": "attack"},
-			{"attack_range": 3},
-			{"damage": 1}
+			{"type": "attack", "attack_range": 3, "damage": 1}
+		],
+	},
+	
+	4: {
+		"title": "dash",
+		"mana_cost": 1,
+		"capabilities": [
+			{"type": "movement", "movement_range": 2},
 		]
+	},
+
+	5: {
+		"title": "wind blast",
+		"mana_cost": 1,
+		"capabilities": [
+			{"type": "attack", "attack_range": 2, "damage": 1}
+		],
 	}
 }
 
@@ -77,20 +89,10 @@ static func create_deck_from_ids(card_ids: Array[int]) -> Deck:
 ## Helper to build capabilities that a card has[br]
 ## [param cap_data]: the listed capabilities in card's capabilities
 static func _build_capabilities(cap_data: Dictionary) -> CardCapability:
-	
-	# if capability is not a valid type, err
-	# changed from match, since cards move and attack
-	if cap_data["type"] != "move" and cap_data["type"] != "attack":
-		printerr("Unknown capability type: ", cap_data["type"])
-		return null
-	else:
-		if cap_data["type"] == "move":
+	match cap_data["type"]:
+		"movement":
 			return MoveCapability.new(cap_data["movement_range"])
-		if cap_data["type"] == "attack":
-			# AttackCapability
-			# max_attack_range: int
-			# damage: int
-			# get_attacked_tiles: Callable
-			return AttackCapability.new(cap_data["attack_range"], cap_data["damage"], cap_data["get_attacked"])
-		printerr("Unknown capability type: ", cap_data["type"])
-		return null
+		"attack":
+			return AttackCapability.new(cap_data["attack_range"], cap_data["damage"], cap_data.get("get_attacked", Callable()))
+	printerr("Unknown capability type: ", cap_data["type"])
+	return null
