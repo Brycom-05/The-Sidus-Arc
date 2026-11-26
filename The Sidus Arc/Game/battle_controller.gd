@@ -2,8 +2,6 @@ class_name BattleController extends RefCounted
 
 static var _instance: BattleController = null
 
-var _turn_manager := TurnManager.new()
-
 var resolution_card_effects: Array[CharacterEffectTuple] = []
 
 class CharacterEffectTuple:
@@ -22,15 +20,49 @@ static func instance() -> BattleController:
 static func instantiate() -> void:
 	_instance = BattleController.new()
 	UIController.instance().player_ends_plan_phase.connect(_instance.continue_turn)
+	UIController.instance().card_effect_animation_ended.connect(_instance.play_next_card_effect) # Added
 
+# Call after characters are placed and player's starting hand is dealt
 func start_level() -> void:
-	_turn_manager.reset()
+	TurnManager.instance().reset()
 	next_turn()
 
 func next_turn() -> void:
+	_begin_turn(true)
+	
+# Moved reveal phase and phase start
+# 1. Clear last turn's queue
+# 2. Draw
+# 3. Recharge mana
+# 4. Reveal and start planning
+func _begin_turn(draw: bool) -> void:
+	TurnManager.instance().next_turn()
+	var player := _get_player()
+	if player == null:
+		printerr("No player character on the map")
+		return
+	
+	for character: MapCharacter in HexMap.instance().get_characters():
+		if draw:
+			character.next_turn()
+		else:
+			character.clear_card_effects()
+	
+	if draw:
+		player.mana_pool.recharge_mana()
+		player.mana_pool.mana_changed()
+	
+	UIController.instance().show_player_hand(player)
 	reveal_phase()
 	plan_phase_start()
-	print("Starting turn ", _turn_manager.get_turn())
+	print("Starting turn ", TurnManager.instance().get_turn())
+
+# Get the player character
+func _get_player() -> PlayerCharacter:
+	for character: MapCharacter in HexMap.instance().get_characters():
+		if character is PlayerCharacter:
+			return character
+	return null
 
 func continue_turn() -> void:
 	print("Continuing")
@@ -44,7 +76,7 @@ func end_turn() -> void:
 		# TODO: Win/Loss stuff
 		return
 	
-	_turn_manager.next_turn()
+	next_turn()
 
 ##  The AI's committed card, destination, and any target tile are shown to the player.
 func reveal_phase() -> void:

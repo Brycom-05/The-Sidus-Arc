@@ -93,6 +93,6 @@ static func _build_capabilities(cap_data: Dictionary) -> CardCapability:
 		"movement":
 			return MoveCapability.new(cap_data["movement_range"])
 		"attack":
-			return AttackCapability.new(cap_data["attack_range"], cap_data["damage"], cap_data.get("get_attacked", Callable()))
+			return AttackCapability.new(cap_data["attack_range"], cap_data["damage"])
 	printerr("Unknown capability type: ", cap_data["type"])
 	return null

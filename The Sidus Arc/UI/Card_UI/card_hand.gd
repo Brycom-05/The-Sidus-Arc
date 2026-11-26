@@ -1,5 +1,8 @@
 extends Control
 
+signal card_play_requested(card: Card)
+signal selection_cancelled
+
 const CARD_SIZE := Vector2(150, 240)
 const CARD_SPACING := 70.0
 const FAN_ANGLE := 11.0
@@ -30,6 +33,7 @@ var hand: Hand
 var character: MapCharacter
 
 func _ready() -> void:
+	add_to_group("card_hand") # Added
 	$Actions/Back.pressed.connect(_return_card)
 	play_button.pressed.connect(_play_selected)
 	resized.connect(_layout)
@@ -89,41 +93,21 @@ func _art_for(card_data: Card) -> Texture2D:
 	return STAGE_ONE_CARDS[key]
 
 # updates to play button
+# Change: only if caster has enough mana
 func _update_play_button() -> void:
 	if selected_card == null:
 		return
 	var card_data: Card = card_by_button[selected_card]
 	# disable the play button if we can't play it
-	play_button.disabled = not CardController.instance().can_play_card(card_data, character, hand)
+	play_button.disabled = not character.mana_pool.can_play_card(card_data.get_mana_cost()) # Added
 
-# play the selected card
+# Ask player to choose a tile
+# Card is not removed until tiles are chosen
 func _play_selected() -> void:
 	if selected_card == null:
 		return
-	var button := selected_card
-	var card_data: Card = card_by_button[button]
-	
-	# if cannot play card
-	if not hand.play_card(card_data, character):
-		return
-	
-	# if play is successful, remove the card visual
-	selected_card = null
-	actions.hide()
-	cards.erase(button)
-	card_by_button.erase(button)
-	if movements.has(button):
-		movements[button].kill()
-		movements.erase(button)
-	
-	var fade := create_tween()
-	fade.tween_property(button, "modulate:a", 0.0, 0.2)
-	fade.tween_callback(button.queue_free)
-	
-	# re-enable cards in hand, and re-fan
-	for hand_card in cards:
-		hand_card.disabled = false
-		_move_card(hand_card)
+	play_button.disabled = true
+	card_play_requested.emit(card_by_button[selected_card])
 
 func _fan_slot(card: TextureButton) -> float:
 	return cards.find(card) - (cards.size() - 1) / 2.0
@@ -215,3 +199,33 @@ func _return_card() -> void:
 	_set_card_flip(0.0, card)
 	for hand_card in cards:
 		hand_card.disabled = false
+	
+	selection_cancelled.emit() # Added
+
+# Actually removes the card visual
+func on_card_played(card: Card) -> void:
+	var button: TextureButton = card_by_button.find_key(card)
+	if button == null:
+		return
+		
+	## if play is successful, remove the card visual
+	selected_card = null
+	actions.hide()
+	cards.erase(button)
+	card_by_button.erase(button)
+	if movements.has(button):
+		movements[button].kill()
+		movements.erase(button)
+	
+	var fade := create_tween()
+	fade.tween_property(button, "modulate:a", 0.0, 0.2)
+	fade.tween_callback(button.queue_free)
+	
+	# re-enable cards in hand, and re-fan
+	for hand_card in cards:
+		hand_card.disabled = false
+		_move_card(hand_card)
+
+# Let the player to cancel selection
+func cancel_selection() -> void:
+	_return_card()

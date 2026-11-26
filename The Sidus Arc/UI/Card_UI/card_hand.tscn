@@ -1,34 +1,36 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://clagpn0do5tub"]
 
-[ext_resource type="Script" path="res://UI/Card_UI/card_hand.gd" id="1"]
-[ext_resource type="Script" path="res://UI/Card_UI/card_sounds.gd" id="2"]
+[ext_resource type="Script" uid="uid://b2k4gecbnf6lc" path="res://UI/Card_UI/card_hand.gd" id="1"]
+[ext_resource type="Script" uid="uid://cmtu2uu38u558" path="res://UI/Card_UI/card_sounds.gd" id="2"]
 
-[node name="CardHand" type="CanvasLayer"]
+[node name="CardHand" type="CanvasLayer" unique_id=114058398]
 
-[node name="Hand" type="Control" parent="."]
+[node name="Hand" type="Control" parent="." unique_id=1678015416]
+texture_filter = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture_filter = 1
 script = ExtResource("1")
 
-[node name="CardSounds" type="AudioStreamPlayer" parent="Hand"]
+[node name="CardSounds" type="AudioStreamPlayer" parent="Hand" unique_id=410322170]
 script = ExtResource("2")
 
-[node name="Actions" type="HBoxContainer" parent="Hand"]
+[node name="Actions" type="HBoxContainer" parent="Hand" unique_id=345452017]
 visible = false
 z_index = 2
+layout_mode = 0
 theme_override_constants/separation = 12
 
-[node name="Back" type="Button" parent="Hand/Actions"]
+[node name="Back" type="Button" parent="Hand/Actions" unique_id=1091656413]
 custom_minimum_size = Vector2(72, 34)
 layout_mode = 2
 text = "Back"
 
-[node name="Cast" type="Button" parent="Hand/Actions"]
+[node name="Cast" type="Button" parent="Hand/Actions" unique_id=62532025]
 custom_minimum_size = Vector2(72, 34)
 layout_mode = 2
 text = "Cast"
