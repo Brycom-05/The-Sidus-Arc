@@ -2,6 +2,18 @@
 
 [ext_resource type="Script" uid="uid://hxujw6e21o2q" path="res://Cutscenes/cutscenes.gd" id="1_eibo2"]
 [ext_resource type="Texture2D" uid="uid://bgxlku5aopie0" path="res://icon.svg" id="2_hpjxi"]
+[ext_resource type="Script" uid="uid://ca17gdfoc3mx1" path="res://Cutscenes/cutscene_slide.gd" id="2_ltxjd"]
+[ext_resource type="Texture2D" uid="uid://u2aw2r4mkb8c" path="res://UI/PlayerUI/wizard.png" id="3_j7w8v"]
+
+[sub_resource type="Resource" id="Resource_v4ebo"]
+script = ExtResource("2_ltxjd")
+text = "Vael! We have come to stop you! This ends now!"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_xgs5e"]
+script = ExtResource("2_ltxjd")
+text = "I see that you’ve gotten this “player” to join you in your quest… But how much do they really know about you?"
+show_right = true
 
 [node name="CutsceneBeforeFinalBoss" type="Control" unique_id=1881799908]
 layout_mode = 3
@@ -12,6 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eibo2")
 text = "before final boss"
+slides = Array[ExtResource("2_ltxjd")]([SubResource("Resource_v4ebo"), SubResource("Resource_xgs5e")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=2108509224]
 layout_mode = 1
@@ -53,7 +66,7 @@ offset_right = 100.0
 offset_bottom = -180.0
 grow_vertical = 0
 mouse_filter = 2
-texture = ExtResource("2_hpjxi")
+texture = ExtResource("3_j7w8v")
 expand_mode = 1
 stretch_mode = 5
 
@@ -80,3 +93,15 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 autowrap_mode = 2
+
+[node name="SkipButton" type="Button" parent="." unique_id=1495879259]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Skip"

@@ -60,8 +60,12 @@ func _run_level(i: int) -> void:
 	var data: LevelData = levels[i]
 		
 	if i == 0:
-		_generate_level_map(data)
-		await play_cutscene(intro_cutscene)
+		var intro: Cutscene = await play_cutscene(intro_cutscene, true)
+		if intro != null:
+			await intro.fade_to_black()
+			_generate_level_map(data)
+			await intro.fade_from_black()
+			intro.queue_free()
 	await play_cutscene(data.before_cutscene)
 
 	load_level(i)
