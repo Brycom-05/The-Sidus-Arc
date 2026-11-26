@@ -227,5 +227,5 @@ func on_card_played(card: Card) -> void:
 		_move_card(hand_card)
 
 # Let the player to cancel selection
-func cancel_select() -> void:
+func cancel_selection() -> void:
 	_return_card()
