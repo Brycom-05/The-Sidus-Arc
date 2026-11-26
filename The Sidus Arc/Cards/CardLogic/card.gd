@@ -25,7 +25,7 @@ func get_capabilities() -> Array[CardCapability]:
 
 # targetting with capability
 func get_primary_capability() -> CardCapability:
-	if (not _capabilities[0].is_empty()):
+	if (not _capabilities.is_empty()):
 		return _capabilities[0]
 	else:
 		return null

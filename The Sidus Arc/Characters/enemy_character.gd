@@ -31,8 +31,7 @@ func pick_move() -> bool:
 	if effect == null:
 		return false
 	
-	effect.apply()
-	_card_effects.push_back(effect)
+	queue_effect(effect)
 	_hand.remove_card(card)
 	return true
 

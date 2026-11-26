@@ -6,15 +6,12 @@ const STARTING_MANA := 100.0
 signal level_completed
 
 @onready var targeting: TargetingController = $TargetingController
-@onready var end_turn_button: Button = $UI/EndTurnButton
 
 @export var levels: Array[LevelData]
 @export var intro_cutscene: PackedScene
 
 @onready var hex_map: HexMap = $HexMap
 @onready var background_music: AudioStreamPlayer = $BackgroundMusic
-
-var hand_ui: Control
 
 var cutscene_layer := CanvasLayer.new()
 var player: PlayerCharacter
@@ -80,7 +77,6 @@ func clear_level() -> void:
 
 
 func load_level(index: int) -> void:
-
 	var data: LevelData = levels[index]
 
 	var deck := CardDatabase.create_deck_from_ids(STAGE_ONE_CARD_IDS)
@@ -90,29 +86,13 @@ func load_level(index: int) -> void:
 	hex_map.place_character(player, data.player_start)
 	
 	player.hand.draw_starting_hand() # Added: player draws starting hand at the start of level
-	hand_ui = get_tree().get_tree().get_first_node_in_group("card_hand")
-	targeting.bind(hand_ui, player)
-	UIController.instance().show_player_hand(player)
-
-	BattleController.instance().start_level()
 
 	for cell: Vector2i in data.enemy_starts:
 		var enemy := EnemyCharacter.new(CardDatabase.create_deck_from_ids(data.enemy_deck_ids))
 		hex_map.add_character(enemy)
 		hex_map.place_character(enemy, cell)
 	
-	begin_player_turn(true)
-
-# Starts the player's turn
-# First turn skip drawing card
-func begin_player_turn(first_turn: bool = false) -> void:
-	TurnManager.instance().next_turn()
-	TurnManager.instance().set_character_turn("Player")
-	player.mana_pool.recharge_mana()
-	player.mana_pool.mana_changed()
-	if not first_turn:
-		player.next_turn()
-	hand_ui.setup(player.hand, player)
+	BattleController.instance().start_level()
 
 # for testing battle ending
 func _unhandled_input(event: InputEvent) -> void:

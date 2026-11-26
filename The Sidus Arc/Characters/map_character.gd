@@ -31,3 +31,15 @@ func get_tile() -> Vector2i:
 
 func get_card_effects() -> Array[CardEffect]:
 	return _card_effects
+
+func next_turn() -> void:
+	clear_card_effects()
+
+func clear_card_effects() -> void:
+	_card_effects.clear()
+
+func queue_effect(effect: CardEffect) -> void:
+	_card_effects.push_back(effect)
+
+func is_enemy_of(other: MapCharacter) -> bool:
+	return other != null and other.team != team
