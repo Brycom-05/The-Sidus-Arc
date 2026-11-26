@@ -19,7 +19,6 @@ func deplete_mana(mana_cost: float) -> void:
 		_mana_pool -= mana_cost
 		update_mana_ui.emit()
 	
-	
 # Determines if a card can be played
 # param [mana_cost]: mana cost to play a card
 func can_play_card(mana_cost: float) -> bool:
@@ -32,4 +31,6 @@ func can_play_card(mana_cost: float) -> bool:
 # TODO
 func recharge_mana() -> void:
 	_mana_pool += 1
+
+func mana_changed() -> void:
 	update_mana_ui.emit()
