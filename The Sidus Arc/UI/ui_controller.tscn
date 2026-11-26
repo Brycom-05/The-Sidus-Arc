@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bcde5qtkpsx8o" path="res://UI/ui_controller.gd" id="1_mx0gf"]
 [ext_resource type="PackedScene" uid="uid://cqw8hqfovcryp" path="res://UI/Camera/main_camera.tscn" id="2_2m40q"]
 [ext_resource type="Script" uid="uid://dlrismy7ku04o" path="res://UI/Camera/main_camera.gd" id="3_1h7k2"]
-[ext_resource type="PackedScene" path="res://UI/Card_UI/card_hand.tscn" id="3_card_hand"]
+[ext_resource type="PackedScene" uid="uid://clagpn0do5tub" path="res://UI/Card_UI/card_hand.tscn" id="3_card_hand"]
 [ext_resource type="PackedScene" path="res://UI/PlayerUI/player_ui.tscn" id="4_player_ui"]
 [ext_resource type="Texture2D" uid="uid://dr02wbvgub872" path="res://UI/End_Turn/endturn.png" id="5_end_turn"]
 [ext_resource type="Script" uid="uid://dqc7lb2u8et3v" path="res://UI/End_Turn/end_turn_hover.gd" id="6_end_turn_hover"]

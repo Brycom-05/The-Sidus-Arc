@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://bw02v83cq7wfm" path="res://Levels/level_2.tres" id="4_0u3qb"]
 [ext_resource type="Resource" uid="uid://d1tyik62ktsss" path="res://Levels/level_3.tres" id="5_ups64"]
 [ext_resource type="PackedScene" uid="uid://cql6ofhg810xi" path="res://Cutscenes/cutscene_intro.tscn" id="6_0u3qb"]
+[ext_resource type="Script" uid="uid://r4jmn27iexgd" path="res://Map/targeting_controller.gd" id="9_rltnn"]
 
 [node name="LevelManager" type="Node2D" unique_id=1043546828]
 script = ExtResource("1_y0d8h")
@@ -19,3 +20,7 @@ intro_cutscene = ExtResource("6_0u3qb")
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=801210999]
 stream = ExtResource("3_music")
 volume_db = -12.0
+
+[node name="TargetingController" type="Node" parent="." unique_id=1362624847]
+script = ExtResource("9_rltnn")
+metadata/_custom_type_script = "uid://r4jmn27iexgd"

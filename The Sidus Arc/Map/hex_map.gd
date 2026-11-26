@@ -1,6 +1,7 @@
 class_name HexMap extends Node2D
 
 @onready var base_layer: TileMapLayer = $BaseLayer
+@onready var highlight_layer: TileMapLayer = $HighlightLayer
 @onready var enemy_telegraph_layer: TileMapLayer = $EnemyTelegraphs
 
 const DEFAULT_MAP_SIZE := Vector2i(12, 8)
@@ -91,6 +92,25 @@ func generate_map(source_id: Array[int] = [0], ground_tiles: Array[Vector2i] = [
 			base_layer.set_cell(cell, source_id.pick_random(), ground_tiles.pick_random())
 	_rebuild_tile_outlines()
 	_generate_mountains(reserved_cells)
+
+	# For testing
+	#var deck := CardDatabase.create_deck_from_ids([2])
+	#
+	#var player := PlayerCharacter.new(deck)
+	#var enemy := EnemyCharacter.new(deck)
+	#
+	#add_character(player)
+	#add_character(enemy)
+	#
+	#place_character(player, Vector2i(0, 0))
+	#place_character(enemy, Vector2i(4, 5))
+	#
+	#timer = Timer.new()
+	#timer.one_shot = true
+	#timer.timeout.connect(test_env)
+	#add_child(timer)
+	#timer.start(2)
+	
 
 func _generate_mountains(reserved_cells: Array[Vector2i] = []) -> void:
 	if reserved_cells.is_empty():
@@ -185,3 +205,39 @@ func get_map_bounds() -> Rect2:
 		var tile_bounds := Rect2(base_layer.map_to_local(cell) - tile_size / 2.0, tile_size)
 		bounds = bounds.merge(tile_bounds)
 	return base_layer.global_transform * bounds
+
+# Added
+# Gets the cells in range for attack/movement capabilities
+func get_cells_in_range(origin: Vector2i, max_range: int) -> Array[Vector2i]:
+	var visited: Dictionary = {origin: true}
+	var frontier: Array[Vector2i] = [origin]
+	var result: Array[Vector2i] = []
+	
+	for step in range(max_range):
+		var next: Array[Vector2i] = []
+		for cell in frontier:
+			# checl all tiles surrounding the caster
+			for neighbor in base_layer.get_surrounding_cells(cell):
+				if visited.has(neighbor): # if already visited, skip
+					continue
+				if base_layer.get_cell_source_id(neighbor) == -1: # if tile is on the map, skip
+					continue
+				if mountain_cells.has(neighbor): # if cell is a mountain
+					continue
+				visited[neighbor] = true
+				next.append(neighbor)
+				result.append(neighbor)
+		frontier = next
+	
+	return result
+
+# get the character standing on a cell
+func get_character_at(cell: Vector2i) -> MapCharacter:
+		for character in map_characters:
+			if character.get_tile() == cell:
+				return character
+		return null
+	
+# map cell under the mouse cursor
+func cell_under_mouse() -> Vector2i:
+	return base_layer.local_to_map(base_layer.get_local_mouse_position())

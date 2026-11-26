@@ -37,5 +37,6 @@ func play_effect(card_effect: CardEffect) -> void:
 
 func _on_end_turn_button_pressed() -> void:
 	if PlayerStateMachine.instance().get_player_can_place_cards():
+		$CardHand/Hand.cancel_selection() # turn off targeting at end turn
 		print("Emit")
 		player_ends_plan_phase.emit()
