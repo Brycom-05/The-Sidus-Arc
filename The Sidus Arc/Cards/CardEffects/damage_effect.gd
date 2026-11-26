@@ -1,12 +1,16 @@
 class_name DamageEffect extends CardEffect
 
-var target: MapCharacter
+var target_cell: Vector2i
 var amount: int
 
-func _init(p_target: MapCharacter, p_amount: int) -> void:
-	target = p_target
+func _init(p_target_cell: Vector2i, p_amount: int) -> void:
+	target_cell = p_target_cell
 	amount = p_amount
 	
+func get_affected_cells() -> Array[Vector2i]:
+	return [target_cell]
+	
 func apply() -> void:
-	if is_instance_valid(target):
+	var target := HexMap.instance().get_character_at(target_cell)
+	if target != null and is_instance_valid(target):
 		target.take_damage(amount)
