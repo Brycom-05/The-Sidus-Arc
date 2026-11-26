@@ -180,19 +180,17 @@ func can_place_character(character: MapCharacter, cell: Vector2i) -> bool:
 func get_characters() -> Array[MapCharacter]:
 	return map_characters
 
-func reveal_enemy_moves(card_effects: Array[CardEffect]) -> void:
+func reveal_enemy_moves() -> void: # get card effects from character instead of parameter
 	enemy_telegraph_layer.clear()
-	
-	var dict: Dictionary[Vector2i, int] = {}
-	
-	for effect: CardEffect in card_effects:
-		if effect is AttackEffect:
-			for tile in (effect as AttackEffect).get_targetted_tiles():
-				dict[tile] = 1
-	
-	for tile: Vector2i in dict:
-		enemy_telegraph_layer.set_cell(tile, 0, Vector2i(0, 0))
-	
+	for character: MapCharacter in map_characters:
+		if character is not EnemyCharacter:
+			continue
+		for effect: CardEffect in character.get_card_effects():
+			for cell: Vector2i in effect.get_affected_cells():
+				enemy_telegraph_layer.set_cell(cell, 0, Vector2i(0,0))
+
+func clear_enemy_moves() -> void:
+	enemy_telegraph_layer.clear()
 
 ## Returns the map's tile bounds in global coordinates.
 func get_map_bounds() -> Rect2:
