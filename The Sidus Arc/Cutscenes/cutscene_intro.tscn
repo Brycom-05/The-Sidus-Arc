@@ -1,7 +1,58 @@
 [gd_scene format=3 uid="uid://cql6ofhg810xi"]
 
 [ext_resource type="Script" uid="uid://hxujw6e21o2q" path="res://Cutscenes/cutscenes.gd" id="1_k1mfy"]
-[ext_resource type="Texture2D" uid="uid://bgxlku5aopie0" path="res://icon.svg" id="2_elpkw"]
+[ext_resource type="Script" uid="uid://ca17gdfoc3mx1" path="res://Cutscenes/cutscene_slide.gd" id="2_0q850"]
+[ext_resource type="Texture2D" uid="uid://u2aw2r4mkb8c" path="res://UI/PlayerUI/wizard.png" id="3_0q850"]
+
+[sub_resource type="Resource" id="Resource_elpkw"]
+script = ExtResource("2_0q850")
+text = "Oh, hello there! I can’t believe my summoning spell worked! You are the one they call “player,” right?"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_0q850"]
+script = ExtResource("2_0q850")
+text = "Well, I believe that you, my friend, possess the ability of foresight, correct?"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_45mp8"]
+script = ExtResource("2_0q850")
+text = "If that is true, then you could be of great service to me in my quest…"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_odc60"]
+script = ExtResource("2_0q850")
+text = "I’ve been tracking down a group of Astral Syndicate members to find out where their hideout is…"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_mrw5h"]
+script = ExtResource("2_0q850")
+text = "Wait… you’ve never heard of the Astral Syndicate??? They’re an organization led by someone named Vael."
+show_left = true
+
+[sub_resource type="Resource" id="Resource_wvtj2"]
+script = ExtResource("2_0q850")
+text = "Vael is trying to use the Sidus Arc to ... you don’t know what that is either, do you?"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_y22mx"]
+script = ExtResource("2_0q850")
+text = "Well, the Sidus Arc is an upcoming comet that can fuel a powerful destruction spell. If Vael succeeds, then…"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_wyvsx"]
+script = ExtResource("2_0q850")
+text = "Would you use your foresight abilities to aid me in my journey to stop Vael?"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_5qjqm"]
+script = ExtResource("2_0q850")
+text = "Yes! I knew you’d accept my offer! … Oh, you want to know what I’m offering, exactly?"
+show_left = true
+
+[sub_resource type="Resource" id="Resource_sbtwp"]
+script = ExtResource("2_0q850")
+text = "... we can figure that out later… On we go!"
+show_left = true
 
 [node name="CutsceneIntro" type="Control" unique_id=1881799908]
 layout_mode = 3
@@ -12,6 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k1mfy")
 text = "Intro"
+slides = Array[ExtResource("2_0q850")]([SubResource("Resource_elpkw"), SubResource("Resource_0q850"), SubResource("Resource_45mp8"), SubResource("Resource_odc60"), SubResource("Resource_mrw5h"), SubResource("Resource_wvtj2"), SubResource("Resource_y22mx"), SubResource("Resource_wyvsx"), SubResource("Resource_5qjqm"), SubResource("Resource_sbtwp")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=2108509224]
 layout_mode = 1
@@ -34,7 +86,7 @@ offset_right = 100.0
 offset_bottom = -180.0
 grow_vertical = 0
 mouse_filter = 2
-texture = ExtResource("2_elpkw")
+texture = ExtResource("3_0q850")
 expand_mode = 1
 stretch_mode = 5
 
@@ -61,3 +113,15 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 autowrap_mode = 2
+
+[node name="SkipButton" type="Button" parent="." unique_id=1849227808]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Skip"

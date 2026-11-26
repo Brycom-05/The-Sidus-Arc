@@ -1,7 +1,44 @@
 [gd_scene format=3 uid="uid://dobchd35g43cr"]
 
 [ext_resource type="Script" uid="uid://hxujw6e21o2q" path="res://Cutscenes/cutscenes.gd" id="1_e34ff"]
+[ext_resource type="Script" uid="uid://ca17gdfoc3mx1" path="res://Cutscenes/cutscene_slide.gd" id="2_0qvkx"]
 [ext_resource type="Texture2D" uid="uid://bgxlku5aopie0" path="res://icon.svg" id="2_qj68r"]
+[ext_resource type="Texture2D" uid="uid://u2aw2r4mkb8c" path="res://UI/PlayerUI/wizard.png" id="3_vnemv"]
+
+[sub_resource type="Resource" id="Resource_dwuy7"]
+script = ExtResource("2_0qvkx")
+text = "You’ve defeated me… but at what cost…"
+show_right = true
+
+[sub_resource type="Resource" id="Resource_uys4h"]
+script = ExtResource("2_0qvkx")
+text = " I was never going to use the Sidus Arc to destroy the world… I wanted to SAVE it…"
+show_right = true
+
+[sub_resource type="Resource" id="Resource_gy4b1"]
+script = ExtResource("2_0qvkx")
+text = "The brutal aristocracy that has reigned us all for years… I wanted it to end!"
+show_right = true
+
+[sub_resource type="Resource" id="Resource_y6lnt"]
+script = ExtResource("2_0qvkx")
+text = "You were lied to, “player”… You were contracted by a member of the aristocracy itself… to stop me."
+show_right = true
+
+[sub_resource type="Resource" id="Resource_4t2r7"]
+script = ExtResource("2_0qvkx")
+text = "... that is true. I am a member of the aristocracy, and that is why I know that we are not all evil, Vael."
+show_left = true
+
+[sub_resource type="Resource" id="Resource_emiqa"]
+script = ExtResource("2_0qvkx")
+text = "That doesn’t matter… we’ve lost now… we failed."
+show_right = true
+
+[sub_resource type="Resource" id="Resource_el55c"]
+script = ExtResource("2_0qvkx")
+text = "And the aristocracy lives on!"
+show_left = true
 
 [node name="CutsceneAfterFinalBoss" type="Control" unique_id=1881799908]
 layout_mode = 3
@@ -12,6 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e34ff")
 text = "after final boss"
+slides = Array[ExtResource("2_0qvkx")]([SubResource("Resource_dwuy7"), SubResource("Resource_uys4h"), SubResource("Resource_gy4b1"), SubResource("Resource_y6lnt"), SubResource("Resource_4t2r7"), SubResource("Resource_emiqa"), SubResource("Resource_el55c")])
 
 [node name="Background" type="ColorRect" parent="." unique_id=2108509224]
 layout_mode = 1
@@ -53,7 +91,7 @@ offset_right = 100.0
 offset_bottom = -180.0
 grow_vertical = 0
 mouse_filter = 2
-texture = ExtResource("2_qj68r")
+texture = ExtResource("3_vnemv")
 expand_mode = 1
 stretch_mode = 5
 
@@ -80,3 +118,15 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 autowrap_mode = 2
+
+[node name="SkipButton" type="Button" parent="." unique_id=1409278744]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Skip"
