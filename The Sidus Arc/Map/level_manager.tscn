@@ -17,7 +17,7 @@ intro_cutscene = ExtResource("6_0u3qb")
 
 [node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_ce7a5")]
 
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=546296530]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=801210999]
 stream = ExtResource("3_music")
 volume_db = -12.0
 

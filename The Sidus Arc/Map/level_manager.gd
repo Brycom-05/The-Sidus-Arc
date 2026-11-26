@@ -32,6 +32,21 @@ func play_cutscene(scene: PackedScene, keep_open: bool = false) -> Cutscene:
 	cutscene.queue_free()
 	return null
 
+func _ready() -> void:
+	cutscene_layer.layer = 100
+	add_child(cutscene_layer)
+
+func play_cutscene(scene: PackedScene, keep_open: bool = false) -> Cutscene:
+	if scene == null:
+		return null
+	var cutscene: Cutscene = scene.instantiate()
+	cutscene_layer.add_child(cutscene)
+	await cutscene.finished
+	if keep_open:
+		return cutscene
+	cutscene.queue_free()
+	return null
+
 func start_level(level: int) -> void:
 	background_music.play()
 	if is_instance_valid(player):
