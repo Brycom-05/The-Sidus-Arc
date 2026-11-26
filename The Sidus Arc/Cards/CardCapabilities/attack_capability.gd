@@ -17,5 +17,4 @@ func get_valid_targets(caster: MapCharacter, map: HexMap) -> Array[Vector2i]:
 	return targets
 
 func build_effect(caster: MapCharacter, target_cell: Vector2i) -> CardEffect:
-	var target := HexMap.instance().get_character_at(target_cell)
-	return DamageEffect.new(target, _damage)
+	return DamageEffect.new(target_cell, _damage)

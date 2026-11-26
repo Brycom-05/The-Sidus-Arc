@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://qansq0pdftcl" path="res://Cutscenes/cutscene_after_level_1.tscn" id="1_nfs6a"]
 [ext_resource type="Script" uid="uid://dboyocxbgumbj" path="res://Levels/level_data.gd" id="1_rovgj"]
 [ext_resource type="PackedScene" uid="uid://d4hp3g1ucxb0d" path="res://Cutscenes/cutscene_before_level_1.tscn" id="1_vsp4g"]
-[ext_resource type="Texture2D" path="res://UI/NPC_UI/wolfs.png" id="2_wolfs"]
+[ext_resource type="Texture2D" uid="uid://ckvykkyinwmwa" path="res://UI/NPC_UI/wolfs.png" id="2_wolfs"]
 
 [resource]
 script = ExtResource("1_rovgj")
