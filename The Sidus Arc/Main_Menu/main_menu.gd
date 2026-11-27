@@ -9,7 +9,6 @@ signal start_game
 @onready var quit_button: TextureButton = %Quit
 @onready var background_music: AudioStreamPlayer = $BackgroundMusic
 @onready var menu_layer: CanvasLayer = $Menu
-@onready var foreground: Sprite2D = $Foreground
 
 
 const GAME_SCENE := preload("res://Map/level_manager.tscn")
@@ -39,7 +38,6 @@ func _on_settings_pressed() -> void:
 	if _settings_menu != null:
 		return
 	menu_layer.visible = false
-	foreground.visible = false
 	_settings_menu = SETTINGS_SCENE.instantiate()
 	_settings_menu.back_pressed.connect(_on_settings_back)
 	add_child(_settings_menu)
@@ -50,7 +48,6 @@ func _on_settings_back() -> void:
 		_settings_menu.queue_free()
 		_settings_menu = null
 	menu_layer.visible = true
-	foreground.visible = true
 	start_button.grab_focus()
 
 

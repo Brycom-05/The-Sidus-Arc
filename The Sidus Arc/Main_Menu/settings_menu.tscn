@@ -30,19 +30,27 @@ texture = ExtResource("11_2ee8n")
 [node name="SettingsMenu" type="Node2D" unique_id=1502592527]
 script = ExtResource("1_5jx55")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=640114815]
-position = Vector2(584, 400)
-scale = Vector2(0.49491525, 0.48780483)
-texture = ExtResource("2_uetb2")
-
 [node name="Menu" type="CanvasLayer" parent="." unique_id=1454405079]
 
 [node name="MenuRoot" type="Control" parent="Menu" unique_id=2032953245]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_use_anchors_ = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Menu/MenuRoot" unique_id=640114815]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_uetb2")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Back" type="TextureButton" parent="Menu/MenuRoot" unique_id=2080684311]
 unique_name_in_owner = true
@@ -58,15 +66,15 @@ stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/MenuRoot" unique_id=962023854]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.2
-anchor_top = -2.4675002
-anchor_right = 0.2
-anchor_bottom = -2.4675002
-offset_left = 131.0
-offset_top = 282.0
-offset_right = 1044.0
-offset_bottom = 811.7
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -210.0
+offset_right = 456.0
+offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
