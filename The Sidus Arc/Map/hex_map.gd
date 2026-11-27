@@ -156,6 +156,7 @@ func _generate_mountains(reserved_cells: Array[Vector2i] = []) -> void:
 func add_character(character: MapCharacter) -> void:
 	map_characters.push_back(character)
 	character.visible = false
+	character.died.connect(_on_character_died.bind(character))
 	add_child(character)
 
 # Caller must queue_free
@@ -224,7 +225,7 @@ func get_cells_in_range(origin: Vector2i, max_range: int) -> Array[Vector2i]:
 	for step in range(max_range):
 		var next: Array[Vector2i] = []
 		for cell in frontier:
-			# checl all tiles surrounding the caster
+			# check all tiles surrounding the caster
 			for neighbor in base_layer.get_surrounding_cells(cell):
 				if visited.has(neighbor): # if already visited, skip
 					continue
@@ -265,6 +266,7 @@ func _draw_hover() -> void:
 		_hover_overlay.draw_colored_polygon(_cell_corners(cell), RANGE_COLOR)
 	for cell: Vector2i in _hover_colors:
 		_hover_overlay.draw_colored_polygon(_cell_corners(cell), _hover_colors[cell])
+
 # Corners of hex
 func _cell_corners(cell: Vector2i) -> PackedVector2Array:
 	var half := Vector2(base_layer.tile_set.tile_size) / 2.0
@@ -307,3 +309,24 @@ func get_footprint(center: Vector2i, radius: int) -> Array[Vector2i]:
 		frontier = next
 	return cells
 	
+# remove character on death
+func _on_character_died(character: MapCharacter) -> void:
+	remove_character(character)
+	character.visible = false
+	character.queue_free()
+
+# Floating text on the map
+# can be used for damage numbers
+func spawn_floating_text(world_position: Vector2, text: String, color: Color) -> void:
+	var label := Label.new()
+	label.text = text
+	label.add_theme_font_size_override("font_size", 20)
+	label.add_theme_color_override("font_color", color)
+	label.z_index = 200
+	add_child(label)
+	label.global_position = world_position
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(label, "global_position:y", world_position.y - 30, 0.6)
+	tween.tween_property(label, "modulate:a", 0.0, 0.6)
+	tween.chain().tween_callback(label.queue_free)
