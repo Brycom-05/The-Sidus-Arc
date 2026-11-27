@@ -2,12 +2,15 @@ class_name MapCharacter extends Sprite2D
 
 enum Team { PLAYER, ENEMY }
 
+signal died
+
 static var NUMBER_OF_CHARACTERS: int = 0
 
 var id: int
 var team: Team = Team.PLAYER
 var max_hp: int = 10 # tentative
 var hp: int = 10 # tentative
+var is_dead := false
 var _card_effects: Array[CardEffect] = []
 var _tile: Vector2i = Vector2i(0, 0)
 var mana_pool := ManaPool.new(0.0)
@@ -20,8 +23,22 @@ func _init() -> void:
 	texture = preload("res://icon.svg")
 	
 func take_damage(amount: int) -> void:
+	if is_dead:
+		print(team, " is dead")
+		return
 	hp = max(hp - amount, 0)
 	print("Character ", id, " took ", amount, " damage, hp: ", hp)
+	if hp == 0:
+		is_dead = true
+		died.emit()
+
+# Add a little white flash when struck
+# feedback for damage effect
+func flash_hit() -> void:
+	var base_color := modulate
+	var tween := create_tween()
+	tween.tween_property(self, "modulate", Color.WHITE, 0.08)
+	tween.tween_property(self, "modulate", base_color, 0.15)
 
 func move_character(dest: Vector2i) -> void:
 	_tile = dest

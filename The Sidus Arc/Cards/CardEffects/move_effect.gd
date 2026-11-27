@@ -15,6 +15,10 @@ func get_affected_cells() -> Array[Vector2i]:
 # Update the new tile right away
 # tweens the sprite from its old spot to the new one
 func apply() -> void:
+	# do not apply effect if character dies
+	if not is_instance_valid(character) or character.is_dead:
+		return
+	
 	var map := HexMap.instance()
 	print("MoveEffect.apply: player -> ", destination)
 	if not map.can_place_character(character, destination):
