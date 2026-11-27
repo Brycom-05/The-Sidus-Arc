@@ -11,11 +11,11 @@ func _ready() -> void:
 	BattleController.instantiate()
 	
 	main_menu.start_game.connect(_on_start_game)
-	$UIController/MainCamera.center_on_map()
 	
 	
 func _on_start_game() -> void:
 	main_menu.queue_free()
 	level_manager.start_level(0)
 	ui_controller.show()
+	$UIController/MainCamera.center_on_map()
 	level_manager.show()
