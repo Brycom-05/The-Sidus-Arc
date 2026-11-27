@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cej2tksoopx28" path="res://Main_Menu/Assets/Buttons/start_button.png" id="3_lpfbm"]
 [ext_resource type="Texture2D" uid="uid://c2e18c8k15jdt" path="res://Main_Menu/Assets/Buttons/settings_button.png" id="4_mp05l"]
 [ext_resource type="Texture2D" uid="uid://do17ycqwf0i7q" path="res://Main_Menu/Assets/Buttons/quit_button.png" id="5_al2h2"]
+[ext_resource type="AudioStream" path="res://Audio/Loading_Screen/Massive Aglow - Para Dot.mp3" id="6_music"]
 
 [node name="MainMenu" type="Node2D" unique_id=2133877696]
 script = ExtResource("1_lpfbm")
@@ -24,6 +25,10 @@ scale = Vector2(1.5869565, 1.9323671)
 texture = ExtResource("2_2ytag")
 
 [node name="Character" type="Sprite2D" parent="." unique_id=375638899]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_music")
+volume_db = -12.0
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=2109956980]
 

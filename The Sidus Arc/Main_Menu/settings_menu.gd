@@ -1,6 +1,9 @@
 class_name SettingsMenu extends Node2D
 
 
+signal back_pressed
+
+
 const MAIN_MENU_SCENE := "res://Game/root.tscn"
 
 
@@ -11,27 +14,33 @@ const MAIN_MENU_SCENE := "res://Game/root.tscn"
 
 
 func _ready() -> void:
-	
 	back_button.pressed.connect(_on_back_pressed)
-	
-	fullscreen_button.button_pressed = (
-		DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
-	)
 
+	var window_mode := DisplayServer.window_get_mode()
+	fullscreen_button.button_pressed = (
+		window_mode == DisplayServer.WINDOW_MODE_FULLSCREEN
+		or window_mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	)
 	fullscreen_button.toggled.connect(_on_fullscreen_toggled)
 
-	
+	var bus_index := AudioServer.get_bus_index("Master")
+	var current_volume := 0.0
+	if not AudioServer.is_bus_mute(bus_index):
+		current_volume = clampf(round(db_to_linear(AudioServer.get_bus_volume_db(bus_index)) * 100.0), 0.0, 100.0)
+
 	volume_slider.min_value = 0
 	volume_slider.max_value = 100
-	volume_slider.value = 100
-	
-	volume_progress.value = volume_slider.value
+	volume_slider.value = current_volume
+	volume_progress.value = current_volume
 
 	volume_slider.value_changed.connect(_on_volume_changed)
 	
 	
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+	if back_pressed.get_connections().size() > 0:
+		back_pressed.emit()
+	else:
+		get_tree().change_scene_to_file(MAIN_MENU_SCENE)
 
 
 func _on_fullscreen_toggled(enabled: bool) -> void:
