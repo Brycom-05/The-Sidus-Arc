@@ -1,7 +1,6 @@
 class_name HexMap extends Node2D
 
 @onready var base_layer: TileMapLayer = $BaseLayer
-@onready var highlight_layer: TileMapLayer = $HighlightLayer
 @onready var enemy_telegraph_layer: TileMapLayer = $EnemyTelegraphs
 
 const DEFAULT_MAP_SIZE := Vector2i(12, 8)
@@ -15,6 +14,7 @@ const MOUNTAIN_SURFACE_SIZE := Vector2(708, 384)
 const MOUNTAIN_SURFACE_CENTER := Vector2(354, 218)
 const TILE_OUTLINE_COLOR := Color("24552c")
 const TILE_OUTLINE_SCREEN_WIDTH := 1.25
+const RANGE_COLOR := Color(0.9, 0.9, 1.0, 0.18)
 
 static var _instance: HexMap
 
@@ -25,6 +25,9 @@ var _outline_segments := PackedVector2Array()
 var _outline_canvas_scale := 0.0
 var mountain_cells: Dictionary[Vector2i, bool] = {}
 var _mountains: Node2D
+var _hover_colors: Dictionary[Vector2i, Color] = {}
+var _hover_overlay: Node2D
+var _range_cells: Array[Vector2i] = []
 
 static func instance() -> HexMap:
 	if _instance == null:
@@ -43,6 +46,13 @@ func _ready() -> void:
 	_mountains.y_sort_enabled = true
 	add_child(_mountains)
 	move_child(_mountains, _tile_outlines.get_index())
+	
+	# hover effects
+	_hover_overlay = Node2D.new()
+	_hover_overlay.name = "HoverOverlay"
+	add_child(_hover_overlay)
+	_hover_overlay.draw.connect(_draw_hover)
+	
 	generate_map()
 
 func _process(_delta: float) -> void:
@@ -239,3 +249,61 @@ func get_character_at(cell: Vector2i) -> MapCharacter:
 # map cell under the mouse cursor
 func cell_under_mouse() -> Vector2i:
 	return base_layer.local_to_map(base_layer.get_local_mouse_position())
+
+# Set tints for highlighted cell
+func set_hover_cells(colors: Dictionary[Vector2i, Color]) -> void:
+	_hover_colors = colors
+	_hover_overlay.queue_redraw()
+
+func clear_hover() -> void:
+	_hover_colors.clear()
+	_hover_overlay.queue_redraw()
+
+# hover color on top after range is drawn
+func _draw_hover() -> void:
+	for cell: Vector2i in _range_cells:
+		_hover_overlay.draw_colored_polygon(_cell_corners(cell), RANGE_COLOR)
+	for cell: Vector2i in _hover_colors:
+		_hover_overlay.draw_colored_polygon(_cell_corners(cell), _hover_colors[cell])
+# Corners of hex
+func _cell_corners(cell: Vector2i) -> PackedVector2Array:
+	var half := Vector2(base_layer.tile_set.tile_size) / 2.0
+	var center := base_layer.map_to_local(cell)
+	var offsets := PackedVector2Array([
+		Vector2(-half.x, 0), Vector2(-half.x / 2.0, -half.y),
+		Vector2(half.x / 2.0, -half.y), Vector2(half.x, 0),
+		Vector2(half.x / 2.0, half.y), Vector2(-half.x / 2.0, half.y),
+	])
+	var points := PackedVector2Array()
+	for offset in offsets:
+		points.append(base_layer.transform * (center + offset))
+	return points
+
+# Dim every cell a card can target
+func set_range_cells(cells: Array[Vector2i]) -> void:
+	_range_cells = cells
+	_hover_overlay.queue_redraw()
+	
+func clear_range() -> void:
+	_range_cells.clear()
+	_hover_overlay.queue_redraw()
+
+# return every on-map cell within radius
+func get_footprint(center: Vector2i, radius: int) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = [center]
+	var visited: Dictionary = {center: true}
+	var frontier: Array[Vector2i] = [center]
+	for _step in range(radius):
+		var next: Array[Vector2i] = []
+		for cell in frontier:
+			for neighbor in base_layer.get_surrounding_cells(cell):
+				if visited.has(neighbor):
+					continue
+				visited[neighbor] = true
+				if base_layer.get_cell_source_id(neighbor) == -1:
+					continue
+				next.append(neighbor)
+				cells.append(neighbor)
+		frontier = next
+	return cells
+	

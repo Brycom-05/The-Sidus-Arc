@@ -39,3 +39,8 @@ func get_valid_targets(caster: MapCharacter, map: HexMap) -> Array[Vector2i]:
 func build_effect(caster: MapCharacter, target_cell: Vector2i) -> CardEffect:
 	var cap := get_primary_capability()
 	return cap.build_effect(caster, target_cell) if cap else null
+
+# Get the area radius of a capability
+func get_area_radius() -> int:
+	var cap := get_primary_capability()
+	return cap.get_area_radius() if cap else 0
