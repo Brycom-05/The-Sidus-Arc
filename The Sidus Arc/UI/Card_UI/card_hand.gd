@@ -73,6 +73,7 @@ func _build_cards() -> void:
 # creates the card as a button
 func _make_card_button(card_data: Card) -> TextureButton:
 	var button := TextureButton.new()
+	button.set_meta("skip_button_click", true)
 	button.texture_normal = _art_for(card_data)
 	button.ignore_texture_size = true
 	button.stretch_mode = TextureButton.STRETCH_SCALE
