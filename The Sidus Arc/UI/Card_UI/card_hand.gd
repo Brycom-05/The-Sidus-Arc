@@ -40,7 +40,7 @@ func _ready() -> void:
 	_layout()
 
 func setup(p_hand: Hand, p_character: MapCharacter) -> void:
-	if is_instance_valid(character):
+	if is_instance_valid(character) and character.mana_pool.update_mana_ui.is_connected(_update_play_button):
 		character.mana_pool.update_mana_ui.disconnect(_update_play_button)
 	hand = p_hand
 	character = p_character
@@ -95,7 +95,8 @@ func _art_for(card_data: Card) -> Texture2D:
 # updates to play button
 # Change: only if caster has enough mana
 func _update_play_button() -> void:
-	if selected_card == null:
+	if selected_card == null or not is_instance_valid(character):
+		play_button.disabled = true
 		return
 	var card_data: Card = card_by_button[selected_card]
 	# disable the play button if we can't play it
