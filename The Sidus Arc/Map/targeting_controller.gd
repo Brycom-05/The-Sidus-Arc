@@ -44,7 +44,6 @@ func _begin_targeting(card: Card) -> void:
 func _process(_delta: float) -> void:
 	if pending_card == null:
 		return
-	print("hover process running")
 	var cell := HexMap.instance().cell_under_mouse()
 	if cell == _hover_cell:
 		return
@@ -69,17 +68,18 @@ func _update_hover(cell: Vector2i) -> void:
 
 # handle other key presses and mouse clicks
 func _unhandled_input(event: InputEvent) -> void:
+	# clicking
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var cell := HexMap.instance().cell_under_mouse()
+		print("click received, pending card: ", pending_card)
+		# invalid click still keeps targeting phase, so player can try again
+		if CardController.instance().play_card(pending_card, player, hand, cell):
+			get_viewport().set_input_as_handled()
 	if pending_card == null:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		hand_ui.cancel_selection()
 		return
-	# clicking
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var cell := HexMap.instance().cell_under_mouse()
-		# invalid click still keeps targeting phase, so player can try again
-		if CardController.instance().play_card(pending_card, player, hand, cell):
-			get_viewport().set_input_as_handled()
 
 # after card is played
 func _on_card_played(card: Card) -> void:
