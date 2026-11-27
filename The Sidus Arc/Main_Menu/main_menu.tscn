@@ -37,27 +37,22 @@ grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Menu/MenuRoot" unique_id=1930176257]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.02876713
-anchor_top = -0.06987548
-anchor_right = 0.028767101
-anchor_bottom = -0.30762526
-offset_left = 200.0
-offset_top = 80.0
-offset_right = 975.0
-offset_bottom = 1014.2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
+theme_override_constants/margin_left = 196
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 196
+theme_override_constants/margin_bottom = 40
 
 [node name="Layout" type="VBoxContainer" parent="Menu/MenuRoot/MarginContainer" unique_id=2041483533]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 30
 
 [node name="Title" type="TextureRect" parent="Menu/MenuRoot/MarginContainer/Layout" unique_id=1054548384]
-custom_minimum_size = Vector2(300, 400)
+custom_minimum_size = Vector2(300, 250)
 layout_mode = 2
 texture = ExtResource("3_2ytag")
 expand_mode = 1
