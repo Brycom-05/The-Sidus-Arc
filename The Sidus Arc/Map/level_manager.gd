@@ -81,6 +81,7 @@ func clear_level() -> void:
 
 
 func load_level(index: int) -> void:
+	print("load level")
 	var data: LevelData = levels[index]
 
 	var deck := CardDatabase.create_deck_from_ids(STAGE_ONE_CARD_IDS)
@@ -88,13 +89,16 @@ func load_level(index: int) -> void:
 	player.mana_pool = ManaPool.new(STARTING_MANA)
 	hex_map.add_character(player)
 	hex_map.place_character(player, data.player_start)
-	
 	player.hand.draw_starting_hand() # Added: player draws starting hand at the start of level
 
 	for cell: Vector2i in data.enemy_starts:
 		var enemy := EnemyCharacter.new(CardDatabase.create_deck_from_ids(data.enemy_deck_ids))
 		hex_map.add_character(enemy)
 		hex_map.place_character(enemy, cell)
+	
+	var hand_ui := get_tree().get_first_node_in_group("card_hand")
+	print("hand_ui: ", hand_ui)
+	targeting.bind(hand_ui, player)
 	
 	BattleController.instance().start_level()
 

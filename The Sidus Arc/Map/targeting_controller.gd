@@ -1,10 +1,14 @@
 class_name TargetingController extends Node
 
+const VALID_COLOR := Color(1.0, 1.0, 1.0, 0.45)
+const INVALID_COLOR := Color(1.0, 0.2, 0.2, 0.45)
+
 var hand_ui: Control
 var player: PlayerCharacter
 var hand: Hand
 var pending_card: Card
 var valid_targets: Array[Vector2i] = []
+var _hover_cell := Vector2i(-1, -1)
 
 func _ready() -> void:
 	# grab signals from hand_ui
@@ -25,6 +29,7 @@ func bind(p_hand_ui: Control, p_player: PlayerCharacter) -> void:
 
 # begin targeting
 func _begin_targeting(card: Card) -> void:
+	print("begin targeting")
 	pending_card = card
 	valid_targets = card.get_valid_targets(player, HexMap.instance())
 	
@@ -32,24 +37,49 @@ func _begin_targeting(card: Card) -> void:
 	if valid_targets.is_empty():
 		hand_ui.cancel_selection()
 		return
-	var layer := HexMap.instance().highlight_layer
-	layer.clear()
-	for cell in valid_targets:
-		layer.set_cell(cell, 0, Vector2i(0, 0))
+	HexMap.instance().set_range_cells(valid_targets)
+	_hover_cell = Vector2i(-1, -1)
+
+# Update hover marker when cursor moves to a new tile
+func _process(_delta: float) -> void:
+	if pending_card == null:
+		return
+	var cell := HexMap.instance().cell_under_mouse()
+	if cell == _hover_cell:
+		return
+	_hover_cell = cell
+	_update_hover(cell)
+
+# set the updated color of the cell
+func _update_hover(cell: Vector2i) -> void:
+	var map := HexMap.instance()
+	if map.base_layer.get_cell_source_id(cell) == -1:
+		map.clear_hover()
+		return
+	var center_valid := cell in valid_targets
+	var colors: Dictionary[Vector2i, Color] = {}
+	# Updating colors for targeting with radii
+	for footprint_cell in map.get_footprint(cell, pending_card.get_area_radius()):
+		if not center_valid or map.mountain_cells.has(footprint_cell):
+			colors[footprint_cell] = INVALID_COLOR
+		else:
+			colors[footprint_cell] = VALID_COLOR
+	map.set_hover_cells(colors)
 
 # handle other key presses and mouse clicks
 func _unhandled_input(event: InputEvent) -> void:
+	# clicking
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var cell := HexMap.instance().cell_under_mouse()
+		print("click received, pending card: ", pending_card)
+		# invalid click still keeps targeting phase, so player can try again
+		if CardController.instance().play_card(pending_card, player, hand, cell):
+			get_viewport().set_input_as_handled()
 	if pending_card == null:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		hand_ui.cancel_selection()
 		return
-	# clicking
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var cell := HexMap.instance().cell_under_mouse()
-		# invalid click still keeps targeting phase, so player can try again
-		if CardController.instance().play_card(pending_card, player, hand, cell):
-			get_viewport().set_input_as_handled()
 
 # after card is played
 func _on_card_played(card: Card) -> void:
@@ -60,4 +90,7 @@ func _on_card_played(card: Card) -> void:
 func _clear_targeting() -> void:
 	pending_card = null
 	valid_targets.clear()
-	HexMap.instance().highlight_layer.clear()
+	_hover_cell = Vector2i(-1, -1)
+	var map := HexMap.instance()
+	map.clear_range()
+	map.clear_hover()

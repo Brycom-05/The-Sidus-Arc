@@ -16,7 +16,7 @@ static var CARDS: Dictionary = {
 		"title": "fireball",
 		"mana_cost": 3,
 		"capabilities": [
-			{"type": "attack", "attack_range": 3, "damage": 2}
+			{"type": "attack", "attack_range": 3, "damage": 2, "area": 1},
 		],
 	},
 	
