@@ -1,8 +1,12 @@
-class_name UIController extends Node
+class_name UIController extends Node2D
 
 static var _instance: UIController = null
 
 @onready var mana_bar: TextureProgressBar = $PlayerUI/Bars/Mana
+@onready var main_camera: Camera2D = $MainCamera
+@onready var card_hand_layer: CanvasLayer = $CardHand
+@onready var player_ui_layer: CanvasLayer = $PlayerUI
+@onready var end_turn_layer: CanvasLayer = $EndTurn
 
 var _mana_pool: ManaPool
 
@@ -17,6 +21,17 @@ static func instance() -> UIController:
 
 func _ready() -> void:
 	_instance = self
+	visibility_changed.connect(_sync_visibility)
+	_sync_visibility()
+
+func _sync_visibility() -> void:
+	card_hand_layer.visible = visible
+	player_ui_layer.visible = visible
+	end_turn_layer.visible = visible
+	main_camera.enabled = visible
+	main_camera.set_process(visible)
+	if visible:
+		main_camera.make_current()
 
 func show_player_hand(player: PlayerCharacter) -> void:
 	$CardHand/Hand.setup(player.hand, player)
