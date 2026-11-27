@@ -21,9 +21,9 @@ func apply() -> void:
 		return
 	var map := HexMap.instance()
 	for cell in target_cells:
-		var target := HexMap.instance().get_character_at(cell)
-		if target != null and is_instance_valid(target):
-			target.take_damage(amount)
+		var target := map.get_character_at(cell)
+		if target == null or not source.is_enemy_of(target):
+			continue
 		var text_position := target.global_position + FLOAT_OFFSET
 		target.flash_hit()
 		map.spawn_floating_text(text_position, "-%d" % amount, DAMAGE_COLOR)
