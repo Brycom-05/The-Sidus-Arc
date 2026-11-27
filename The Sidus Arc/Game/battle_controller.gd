@@ -76,6 +76,13 @@ func end_turn() -> void:
 	
 	if status == 1 or status == -1:
 		# TODO: Win/Loss stuff
+		# temporary win/loss announcement
+		if status == 1:
+			print("Level won")
+			return
+		if status == -1:
+			print("Level lost")
+			return
 		return
 	
 	next_turn()
@@ -152,5 +159,11 @@ func play_next_card_effect() -> void:
 ## draws replacements when possible, updates the round counter, and generates the AI's next intent.
 ## Returns 0 to continue, 1 for win, -1 for loss
 func cleanup_phase() -> int:
-	# TODO
-	return 0
+	var player := _get_player()
+	# if the player is dead, announce loss
+	if player == null or player.is_dead:
+		return -1
+	for character: MapCharacter in HexMap.instance().get_characters():
+		if character is EnemyCharacter: 
+			return 0
+	return 1

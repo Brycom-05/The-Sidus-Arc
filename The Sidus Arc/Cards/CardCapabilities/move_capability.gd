@@ -14,9 +14,5 @@ func get_valid_targets(caster: MapCharacter, map: HexMap) -> Array[Vector2i]:
 	return targets
 
 # Build move effect
-func create_effect(source: Vector2i, destination: Vector2i, character: MapCharacter) -> CardEffect:
-	if source.distance_to(destination) > _max_move_distance:
-		printerr("Illegal Move: Source and destination are two far apart: ", source.distance_to(destination), ". Supposed to be ", _max_move_distance)
-		return null
-	
-	return MoveEffect.new(character, destination)
+func build_effect(caster: MapCharacter, destination: Vector2i) -> CardEffect:
+	return MoveEffect.new(caster, destination)
