@@ -11,6 +11,8 @@ script = ExtResource("1_ktsxd")
 [node name="MainMenu" parent="." unique_id=2133877696 instance=ExtResource("2_gurxa")]
 
 [node name="UIController" parent="." unique_id=1451427509 instance=ExtResource("2_gmmwd")]
+visible = false
 position = Vector2(591, 414)
 
 [node name="LevelManager" parent="." unique_id=1043546828 instance=ExtResource("2_ktsxd")]
+visible = false

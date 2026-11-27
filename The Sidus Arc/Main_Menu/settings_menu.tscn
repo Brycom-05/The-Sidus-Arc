@@ -3,10 +3,29 @@
 [ext_resource type="Script" uid="uid://d3lglsi01lb5l" path="res://Main_Menu/settings_menu.gd" id="1_5jx55"]
 [ext_resource type="Texture2D" uid="uid://hc4pselosp8c" path="res://Map/background.png" id="2_uetb2"]
 [ext_resource type="Texture2D" uid="uid://dk182w4iwpkpk" path="res://Main_Menu/Assets/Buttons/Settings/fullscreen_button.png" id="3_325ho"]
+[ext_resource type="Texture2D" uid="uid://bhmawq32ic3wc" path="res://Main_Menu/Assets/Buttons/Settings/back_button.png" id="3_eyjib"]
+[ext_resource type="Texture2D" uid="uid://b8y6yworu7267" path="res://Main_Menu/Assets/Buttons/Settings/back_button_hover.png" id="4_8xfxt"]
 [ext_resource type="Texture2D" uid="uid://bk12wdidt6wej" path="res://Main_Menu/Assets/Buttons/Settings/check_button.png" id="4_eyjib"]
 [ext_resource type="Texture2D" uid="uid://bwxs1bvkm1dcy" path="res://Main_Menu/Assets/Buttons/Settings/check_button_checked.png" id="5_8xfxt"]
 [ext_resource type="Texture2D" uid="uid://bmliuem6om0ax" path="res://Main_Menu/Assets/Buttons/Settings/check_button_hover.png" id="6_1hfhu"]
 [ext_resource type="Texture2D" uid="uid://dhkxuxsma2v1s" path="res://Main_Menu/Assets/Buttons/Settings/audio_button.png" id="7_2ee8n"]
+[ext_resource type="Texture2D" uid="uid://b771uq17jody0" path="res://Main_Menu/Assets/Buttons/Settings/audio_slidder_grabber.png" id="10_1hfhu"]
+[ext_resource type="Texture2D" uid="uid://d4i7783806blq" path="res://Main_Menu/Assets/Buttons/Settings/audio_slider_grabber_hover.png" id="11_2ee8n"]
+[ext_resource type="Texture2D" uid="uid://c5cuunc3tu6lf" path="res://Main_Menu/Assets/Buttons/Settings/audio_slider.png" id="12_pfuxv"]
+[ext_resource type="Texture2D" uid="uid://t4ovwy1dcm5o" path="res://Main_Menu/Assets/Buttons/Settings/audio_slider_progress.png" id="13_2ee8n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1hfhu"]
+texture = ExtResource("6_1hfhu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gmsg7"]
+texture = ExtResource("6_1hfhu")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmsg7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mux1p"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfuxv"]
+texture = ExtResource("11_2ee8n")
 
 [node name="SettingsMenu" type="Node2D" unique_id=1502592527]
 script = ExtResource("1_5jx55")
@@ -25,6 +44,18 @@ offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
 
+[node name="Back" type="TextureButton" parent="Menu/MenuRoot" unique_id=2080684311]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 296.0
+offset_bottom = 116.0
+texture_normal = ExtResource("3_eyjib")
+texture_hover = ExtResource("4_8xfxt")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="MarginContainer" type="MarginContainer" parent="Menu/MenuRoot" unique_id=962023854]
 layout_mode = 1
 anchors_preset = -1
@@ -33,9 +64,9 @@ anchor_top = -2.4675002
 anchor_right = 0.2
 anchor_bottom = -2.4675002
 offset_left = 131.0
-offset_top = 184.0
+offset_top = 282.0
 offset_right = 1044.0
-offset_bottom = 713.7
+offset_bottom = 811.7
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -51,6 +82,7 @@ theme_override_constants/separation = 20
 
 [node name="Fullscreen" type="HBoxContainer" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons" unique_id=743172436]
 layout_mode = 2
+theme_override_constants/separation = 300
 
 [node name="FullscreenLabel" type="TextureRect" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Fullscreen" unique_id=1690839611]
 custom_minimum_size = Vector2(400, 200)
@@ -59,28 +91,67 @@ texture = ExtResource("3_325ho")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="FullsreenCheck" type="TextureButton" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Fullscreen" unique_id=1182374970]
+[node name="FullsreenCheck" type="CheckBox" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Fullscreen" unique_id=1650213150]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(288, 60)
+custom_minimum_size = Vector2(200, 1)
 layout_mode = 2
-texture_normal = ExtResource("4_eyjib")
-texture_pressed = ExtResource("5_8xfxt")
-texture_hover = ExtResource("6_1hfhu")
-ignore_texture_size = true
-stretch_mode = 5
+theme_override_styles/hover = SubResource("StyleBoxTexture_1hfhu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_gmsg7")
+theme_override_icons/checked = ExtResource("5_8xfxt")
+theme_override_icons/unchecked = ExtResource("4_eyjib")
+theme_override_icons/checked_disabled = ExtResource("4_eyjib")
+theme_override_icons/unchecked_disabled = ExtResource("4_eyjib")
 
 [node name="Audio" type="HBoxContainer" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons" unique_id=1677344176]
 layout_mode = 2
 
-[node name="AudioSlider" type="HSlider" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio" unique_id=1212578138]
-unique_name_in_owner = true
-layout_mode = 2
-tick_count = 10
-ticks_position = 3
-
-[node name="AudioTexture" type="TextureProgressBar" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio" unique_id=1181398169]
-layout_mode = 2
-
 [node name="AudioLabel" type="TextureRect" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio" unique_id=1038401024]
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 texture = ExtResource("7_2ee8n")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AudioTrack" type="Control" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio" unique_id=958106420]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
+
+[node name="AudioProgress" type="TextureProgressBar" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio/AudioTrack" unique_id=1253192966]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -64.0
+offset_right = 256.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+value = 100.0
+texture_under = ExtResource("12_pfuxv")
+texture_progress = ExtResource("13_2ee8n")
+texture_progress_offset = Vector2(49, 40)
+
+[node name="AudioSlider" type="HSlider" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons/Audio/AudioTrack" unique_id=1212578138]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_icons/grabber = ExtResource("10_1hfhu")
+theme_override_icons/grabber_highlight = ExtResource("11_2ee8n")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_gmsg7")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_mux1p")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_pfuxv")
+ticks_position = 3
+metadata/_edit_use_anchors_ = true
