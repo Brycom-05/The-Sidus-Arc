@@ -1,3 +1,4 @@
 stage1 background music: Bustling Village Request - Peritune
 stage2 background music: Sound by Slowdown
 bossfight background music: School of Wizardry by BrunuhVille
+loading screen music: Massive Aglow by Para Dot
