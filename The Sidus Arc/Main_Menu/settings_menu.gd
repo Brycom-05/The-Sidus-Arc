@@ -1,7 +1,7 @@
 class_name SettingsMenu extends Node2D
 
 
-const MAIN_MENU_SCENE := "res://Main_Menu/main_menu.tscn"
+const MAIN_MENU_SCENE := "res://Game/root.tscn"
 
 
 @onready var back_button: TextureButton = %Back
