@@ -28,7 +28,7 @@ func play_cutscene(scene: PackedScene, keep_open: bool = false) -> Cutscene:
 	cutscene_layer.add_child(cutscene)
 	await cutscene.finished
 	if keep_open:
-		return cutscene
+		return cutscene 
 	cutscene.queue_free()
 	return null
 

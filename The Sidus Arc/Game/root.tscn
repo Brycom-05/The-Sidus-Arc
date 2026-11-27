@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://by2kun8tfng3s" path="res://Game/root.gd" id="1_ktsxd"]
 [ext_resource type="PackedScene" uid="uid://dligybt2gyu8c" path="res://UI/ui_controller.tscn" id="2_gmmwd"]
+[ext_resource type="PackedScene" uid="uid://ci6212oqnov1g" path="res://Main_Menu/main_menu.tscn" id="2_gurxa"]
 [ext_resource type="PackedScene" uid="uid://cj8bp38wiqkoi" path="res://Map/level_manager.tscn" id="2_ktsxd"]
 
 [node name="Root" type="Node2D" unique_id=1810839130]
 script = ExtResource("1_ktsxd")
+
+[node name="MainMenu" parent="." unique_id=2133877696 instance=ExtResource("2_gurxa")]
 
 [node name="UIController" parent="." unique_id=1451427509 instance=ExtResource("2_gmmwd")]
 position = Vector2(591, 414)

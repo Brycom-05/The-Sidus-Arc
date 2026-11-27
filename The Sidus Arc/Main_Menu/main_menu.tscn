@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://ci6212oqnov1g"]
+
+[ext_resource type="Script" uid="uid://bchncj8lqbips" path="res://Main_Menu/main_menu.gd" id="1_lpfbm"]
+[ext_resource type="Texture2D" uid="uid://hc4pselosp8c" path="res://Map/background.png" id="1_ra02u"]
+[ext_resource type="Texture2D" uid="uid://d01hk6nxw71wn" path="res://Main_Menu/Assets/Background/foreground.png" id="2_2ytag"]
+[ext_resource type="Texture2D" uid="uid://dlhofk3p4hlm5" path="res://Main_Menu/Assets/Buttons/title.png" id="3_2ytag"]
+[ext_resource type="Texture2D" uid="uid://cej2tksoopx28" path="res://Main_Menu/Assets/Buttons/start_button.png" id="3_lpfbm"]
+[ext_resource type="Texture2D" uid="uid://c2e18c8k15jdt" path="res://Main_Menu/Assets/Buttons/settings_button.png" id="4_mp05l"]
+[ext_resource type="Texture2D" uid="uid://do17ycqwf0i7q" path="res://Main_Menu/Assets/Buttons/quit_button.png" id="5_al2h2"]
+
+[node name="MainMenu" type="Node2D" unique_id=2133877696]
+script = ExtResource("1_lpfbm")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=656172882]
+position = Vector2(584, 400)
+scale = Vector2(0.49491525, 0.48780483)
+texture = ExtResource("1_ra02u")
+
+[node name="Midground" type="Sprite2D" parent="." unique_id=189931693]
+
+[node name="Foreground" type="Sprite2D" parent="." unique_id=1069561858]
+position = Vector2(584, 400)
+scale = Vector2(1.5869565, 1.9323671)
+texture = ExtResource("2_2ytag")
+
+[node name="Character" type="Sprite2D" parent="." unique_id=375638899]
+
+[node name="Menu" type="CanvasLayer" parent="." unique_id=2109956980]
+
+[node name="MenuRoot" type="Control" parent="Menu" unique_id=1946840173]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/MenuRoot" unique_id=1930176257]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = -2.5125
+anchor_right = 0.2
+anchor_bottom = -7.2675004
+offset_left = 200.0
+offset_top = 80.0
+offset_right = 975.0
+offset_bottom = 1014.2
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Layout" type="VBoxContainer" parent="Menu/MenuRoot/MarginContainer" unique_id=2041483533]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="TextureRect" parent="Menu/MenuRoot/MarginContainer/Layout" unique_id=1054548384]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+texture = ExtResource("3_2ytag")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Buttons" type="VBoxContainer" parent="Menu/MenuRoot/MarginContainer/Layout" unique_id=1115135387]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Start" type="TextureButton" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons" unique_id=1160921659]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(288, 100)
+layout_mode = 2
+texture_normal = ExtResource("3_lpfbm")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Settings" type="TextureButton" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons" unique_id=429724761]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(288, 100)
+layout_mode = 2
+texture_normal = ExtResource("4_mp05l")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Quit" type="TextureButton" parent="Menu/MenuRoot/MarginContainer/Layout/Buttons" unique_id=1755283236]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(288, 100)
+layout_mode = 2
+texture_normal = ExtResource("5_al2h2")
+ignore_texture_size = true
+stretch_mode = 5
