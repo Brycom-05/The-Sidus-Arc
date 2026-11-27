@@ -1,12 +1,13 @@
-class_name SettingsMenu extends Control
+class_name SettingsMenu extends Node2D
 
 
-const MAIN_MENU_SCENE := preload("res://Main_Menu/main_menu.tscn")
+const MAIN_MENU_SCENE := "res://Main_Menu/main_menu.tscn"
 
 
 @onready var back_button: TextureButton = %Back
-@onready var fullscreen_button: HSlider = $FullsreenCheck
-@onready var volume_slider: HSlider = $AudioSlider
+@onready var fullscreen_button: CheckBox = %FullsreenCheck
+@onready var volume_slider: HSlider = %AudioSlider
+@onready var volume_progress: TextureProgressBar = %AudioProgress
 
 
 func _ready() -> void:
@@ -23,12 +24,14 @@ func _ready() -> void:
 	volume_slider.min_value = 0
 	volume_slider.max_value = 100
 	volume_slider.value = 100
+	
+	volume_progress.value = volume_slider.value
 
 	volume_slider.value_changed.connect(_on_volume_changed)
 	
 	
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_packed(MAIN_MENU_SCENE)
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
 
 
 func _on_fullscreen_toggled(enabled: bool) -> void:
@@ -39,6 +42,8 @@ func _on_fullscreen_toggled(enabled: bool) -> void:
 
 
 func _on_volume_changed(value: float) -> void:
+	volume_progress.value = value
+	
 	var bus_index = AudioServer.get_bus_index("Master")
 
 	# Convert percentage to decibels
