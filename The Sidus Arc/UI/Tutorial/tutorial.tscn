@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ch6dpxxqh7kmo"]
+
+[ext_resource type="Script" uid="uid://dqteyxvppgv7v" path="res://UI/Tutorial/tutorial.gd" id="1_amgj3"]
+
+[node name="Tutorial" type="CanvasLayer" unique_id=824431307]
+script = ExtResource("1_amgj3")
+
+[node name="TextBox" type="PanelContainer" parent="." unique_id=792180733]
+custom_minimum_size = Vector2(0, 180)
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.347
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -280.0
+offset_right = 99.70401
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Margin" type="MarginContainer" parent="TextBox" unique_id=1533891129]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="TextBox/Margin" unique_id=113176566]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+
+[node name="SkipButton" type="Button" parent="." unique_id=109745079]
+custom_minimum_size = Vector2(80, 40)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 20.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Skip"

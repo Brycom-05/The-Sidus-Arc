@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b37s08pxe0oia"]
+
+[ext_resource type="Script" uid="uid://bkl1nus121af4" path="res://UI/Tutorial/tutorial_button.gd" id="1_c742t"]
+
+[node name="TutorialButton" type="CanvasLayer" unique_id=70425462]
+script = ExtResource("1_c742t")
+
+[node name="Button" type="Button" parent="." unique_id=2127475883]
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 86.0
+offset_bottom = 47.0
+text = "Tutorial"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
