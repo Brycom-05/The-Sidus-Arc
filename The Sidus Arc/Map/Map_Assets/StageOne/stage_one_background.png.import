@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hc4pselosp8c"
-path="res://.godot/imported/background.png-852edfd1c6ba0ed54189008de13c012b.ctex"
+uid="uid://yw0ydbospgl4"
+path="res://.godot/imported/stage_one_background.png-9b842581b2d69c7349afc68edbea2178.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/background.png"
-dest_files=["res://.godot/imported/background.png-852edfd1c6ba0ed54189008de13c012b.ctex"]
+source_file="res://Map/Map_Assets/StageOne/stage_one_background.png"
+dest_files=["res://.godot/imported/stage_one_background.png-9b842581b2d69c7349afc68edbea2178.ctex"]
 
 [params]
 

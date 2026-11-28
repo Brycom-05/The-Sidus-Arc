@@ -9,11 +9,17 @@
 [ext_resource type="Resource" uid="uid://d1tyik62ktsss" path="res://Levels/level_3.tres" id="5_ups64"]
 [ext_resource type="PackedScene" uid="uid://cql6ofhg810xi" path="res://Cutscenes/cutscene_intro.tscn" id="6_0u3qb"]
 [ext_resource type="Script" uid="uid://r4jmn27iexgd" path="res://Map/targeting_controller.gd" id="9_rltnn"]
+[ext_resource type="Texture2D" uid="uid://yw0ydbospgl4" path="res://Map/Map_Assets/StageOne/stage_one_background.png" id="10_jfkpf"]
 
 [node name="LevelManager" type="Node2D" unique_id=1043546828]
 script = ExtResource("1_y0d8h")
 levels = Array[ExtResource("2_iv5we")]([ExtResource("3_2swdv"), ExtResource("4_0u3qb"), ExtResource("5_ups64")])
 intro_cutscene = ExtResource("6_0u3qb")
+
+[node name="BackgroundArt" type="Sprite2D" parent="." unique_id=871709191]
+position = Vector2(902, 344.49994)
+scale = Vector2(2.8398304, 2.134756)
+texture = ExtResource("10_jfkpf")
 
 [node name="HexMap" parent="." unique_id=1209611969 instance=ExtResource("1_ce7a5")]
 
