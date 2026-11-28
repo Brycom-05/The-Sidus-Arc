@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" path="res://UI/PlayerUI/player_ui.tscn" id="4_player_ui"]
 [ext_resource type="Texture2D" uid="uid://dr02wbvgub872" path="res://UI/End_Turn/endturn.png" id="5_end_turn"]
 [ext_resource type="Script" uid="uid://dqc7lb2u8et3v" path="res://UI/End_Turn/end_turn_hover.gd" id="6_end_turn_hover"]
+[ext_resource type="PackedScene" uid="uid://ch6dpxxqh7kmo" path="res://UI/Tutorial/tutorial.tscn" id="8_tbatp"]
+[ext_resource type="PackedScene" uid="uid://b37s08pxe0oia" path="res://UI/Tutorial/tutorial_button.tscn" id="9_er8tw"]
 
 [node name="UIController" type="Node2D" unique_id=486333169]
 script = ExtResource("1_mx0gf")
@@ -47,4 +49,9 @@ offset_bottom = 89.0
 texture_normal = ExtResource("5_end_turn")
 stretch_mode = 6
 
+[node name="Tutorial" parent="." unique_id=824431307 instance=ExtResource("8_tbatp")]
+
+[node name="TutorialButton" parent="." unique_id=70425462 instance=ExtResource("9_er8tw")]
+
 [connection signal="pressed" from="EndTurn/HoverArea/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="start_tutorial" from="TutorialButton" to="." method="_on_tutorial_button_start_tutorial"]

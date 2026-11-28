@@ -55,3 +55,6 @@ func _on_end_turn_button_pressed() -> void:
 		$CardHand/Hand.cancel_selection() # turn off targeting at end turn
 		print("Emit")
 		player_ends_plan_phase.emit()
+
+func _on_tutorial_button_start_tutorial() -> void:
+	$Tutorial.start_tutorial()
